@@ -104,6 +104,7 @@ class GoogleNews extends Sitemap {
 				$exclude_old_posts_sql
 				$exclude_posts_sql
 				$exclude_terms_sql
+				GROUP BY posts.ID
 				ORDER BY posts.post_modified DESC";
 
 		$posts = QueryBuilder::run_query( $sql );

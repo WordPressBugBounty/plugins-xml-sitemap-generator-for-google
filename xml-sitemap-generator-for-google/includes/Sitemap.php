@@ -300,6 +300,7 @@ class Sitemap extends Controller {
 				$where_clause posts.post_status = 'publish' AND posts.post_type IN $sql_post_types AND posts.post_password = ''
 				$exclude_posts_sql
 				$exclude_terms_sql
+				GROUP BY posts.ID
 				ORDER BY posts.post_modified DESC";
 
 		if ( is_null( $current_page ) && ! $is_sitemap_index ) {
@@ -389,7 +390,7 @@ class Sitemap extends Controller {
 		$multilingual_sql = $this->multilingual_sql( $taxonomy_types, true );
 		$where_clause     = ! empty( $multilingual_sql ) ? 'AND ' : 'WHERE ';
 		$terms_query      = "
-			SELECT terms.*, term_taxonomy.*, (
+			SELECT terms.*, term_taxonomy.taxonomy, term_taxonomy.count, (
 				SELECT MAX(p.post_modified)
 				FROM $wpdb->posts AS p
 				INNER JOIN $wpdb->term_relationships AS tr ON p.ID = tr.object_id
@@ -455,11 +456,15 @@ class Sitemap extends Controller {
 				continue;
 			}
 
+			$term_modified = ! empty( $term->post_modified )
+				? strtotime( $term->post_modified )
+				: time();
+
 			$this->add_url(
 				get_category_link( $term ),
 				apply_filters( 'sitemap_term_priority', $this->get_taxonomy_settings( $term->taxonomy, 'priority' ), $term->term_id ),
 				apply_filters( 'sitemap_term_frequency', $this->get_taxonomy_settings( $term->taxonomy, 'frequency' ), $term->term_id ),
-				gmdate( DATE_W3C, strtotime( $term->post_modified ) ),
+				gmdate( DATE_W3C, $term_modified ),
 				'category'
 			);
 		}
@@ -660,7 +665,7 @@ class Sitemap extends Controller {
 		global $wpdb;
 
 		$multilingual_sql  = '';
-		$element_id_column = $is_taxonomy ? 'terms.term_id' : 'posts.ID';
+		$element_id_column = $is_taxonomy ? 'term_taxonomy.term_taxonomy_id' : 'posts.ID';
 
 		if ( function_exists( 'pll_languages_list' ) && ! empty( $GLOBALS['polylang'] ) ) {
 			global $polylang;
@@ -689,40 +694,18 @@ class Sitemap extends Controller {
 			}
 		}
 
-		if ( defined( 'ICL_SITEPRESS_VERSION' ) ) {
-			$current_language = apply_filters( 'wpml_current_language', null );
-
-			if ( apply_filters( 'wpml_default_language', null ) === $current_language && array_key_exists( 'sitepress', $GLOBALS ) && class_exists( 'SitePress' ) ) {
-				global $sitepress;
-
-				$wpml_sync_option   = $is_taxonomy
-					? \WPML_Element_Sync_Settings_Factory::KEY_TAX_SYNC_OPTION
-					: \WPML_Element_Sync_Settings_Factory::KEY_POST_SYNC_OPTION;
-				$wpml_sync_settings = $sitepress->get_setting( $wpml_sync_option, array() );
-
-				foreach ( $element_types as $key => $post_type ) {
-					if ( 0 === intval( $wpml_sync_settings[ $post_type ] ?? 0 ) ) {
-						unset( $element_types[ $key ] );
-					}
-				}
-			}
-
-			if ( ! empty( $element_types ) ) {
-				$element_type       = $is_taxonomy ? 'tax' : 'post';
-				$wpml_element_types = array_map(
-					function ( $post_type ) use ( $element_type ) {
-						return "{$element_type}_{$post_type}";
-					},
-					$element_types
-				);
-				$sql_element_types  = "('" . implode( "','", $wpml_element_types ) . "')";
-				$multilingual_sql   = "INNER JOIN {$wpdb->prefix}icl_translations AS translations ON $element_id_column = translations.element_id
-				WHERE translations.language_code = '$current_language'
-				AND (
-					(translations.element_type IN $sql_element_types AND $element_id_column = translations.element_id)
-					OR translations.element_type NOT IN $sql_element_types
-				)";
-			}
+		if ( defined( 'ICL_SITEPRESS_VERSION' ) && ! empty( $element_types ) ) {
+			$current_language   = apply_filters( 'wpml_current_language', null );
+			$element_type       = $is_taxonomy ? 'tax' : 'post';
+			$wpml_element_types = array_map(
+				function ( $post_type ) use ( $element_type ) {
+					return "{$element_type}_{$post_type}";
+				},
+				$element_types
+			);
+			$sql_element_types  = "('" . implode( "','", $wpml_element_types ) . "')";
+			$multilingual_sql   = "INNER JOIN {$wpdb->prefix}icl_translations AS translations ON $element_id_column = translations.element_id
+			WHERE translations.language_code = '$current_language' AND translations.element_type IN $sql_element_types";
 		}
 
 		return $multilingual_sql;

@@ -5,7 +5,7 @@ Tags: sitemap, xml sitemap, google news, image sitemap, video sitemap, google si
 Requires at least: 5.0
 Requires PHP: 5.6
 Tested up to: 6.6.2
-Stable tag: 1.9.10
+Stable tag: 1.9.12
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,7 @@ Here is a short list of Google XML Sitemap plugin features.
 * Cache Sitemaps 🔥
 * Import & Export Settings
 * Toolbar with most helpful Actions & Links 🔥
+* Disables auto-generated WP Sitemaps
 * Multisite Network compatible
 * WooCommerce compatible
 * Multilingual Sitemap 🔥
@@ -272,6 +273,13 @@ This section describes how to install the plugin and get it working.
 4. Set Up Page in **Settings -> XML Sitemaps**.
 
 == Changelog ==
+
+= 1.9.12 - 2024-09-26 =
+* Multiple Sitemap queries improved
+
+= 1.9.11 - 2024-09-25 =
+* WPML Category Sitemap issue fixed. Thanks to @waldub
+* WPML compatibility improved
 
 = 1.9.10 - 2024-09-12 =
 * WordPress 6.6.2 compatible

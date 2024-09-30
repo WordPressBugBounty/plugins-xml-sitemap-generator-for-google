@@ -36,6 +36,9 @@ jQuery(document).ready(function($) {
         stepMenus.removeClass('active');
         stepMenus.eq(stepIndex).addClass('active');
 
+        stepMenus.slice(0, stepIndex).addClass('completed');
+        stepMenus.slice(stepIndex).removeClass('completed');
+
         if (stepIndex === 0) {
             formBackBtn.removeClass('active');
         } else {
@@ -43,15 +46,9 @@ jQuery(document).ready(function($) {
         }
 
         if (stepIndex === formSteps.length - 1) {
-            formSubmitBtn.text('Finish');
+            formSubmitBtn.text(sggWizard.finish);
         } else {
-            formSubmitBtn.text('Continue');
+            formSubmitBtn.text(sggWizard.continue);
         }
     }
-
-    // Toggle Depended Input Fields
-    $('.wizard-form-checkbox').on('change', function() {
-        const target = $(this).attr('id');
-        $(`.wizard-input-wrapper[data-dependency="${target}"]`).toggleClass('active', this.checked);
-    });
 });
