@@ -4,8 +4,8 @@ Donate link: https://wpgrim.com/google-xml-sitemaps-generator-pro/?utm_source=wo
 Tags: sitemap, xml sitemap, google news, image sitemap, video sitemap, google sitemaps, xml, google, seo, sitemaps
 Requires at least: 5.0
 Requires PHP: 5.6
-Tested up to: 6.7.1
-Stable tag: 2.0.6
+Tested up to: 6.7.2
+Stable tag: 2.0.7
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -73,14 +73,14 @@ Here is a short list of Google XML Sitemap plugin features.
 * IndexNow Protocol for indexing Microsoft Bing, Seznam.cz, Naver, and Yandex
 * Control Sitemap Options for all Pages, Posts, Custom Posts, Archives, Authors, Categories, Taxonomies and Tags 🔥
 * Include/Exclude Taxonomies, Categories, Tags 🔥
-* Add Custom Sitemaps to Sitemap Index **[NEW]**
+* Add Custom Sitemaps to Sitemap Index
 * Add Custom External/Internal URLs to your XML Sitemap 🔥
 * Automatically add Sitemaps to robots.txt
-* Links Per Page for Sitemap Index **[NEW]**
-* Static Sitemap File detector **[NEW]**
+* Links Per Page for Sitemap Index 🔥
+* Static Sitemap File detector
 * Toolbar with most helpful Actions & Links 🔥
 * Disables auto-generated WP Sitemaps
-* Setup Wizard **[NEW]** 🔥
+* Setup Wizard 🔥
 * Multisite Network compatible
 * WooCommerce compatible
 * Multilingual Sitemap 🔥
@@ -149,7 +149,7 @@ You can also customize your HTML Sitemap by choosing which Post Types to display
 -- Gutenberg block
 -- WPBakery (Visual Composer) widget
 -- **[html-sitemap post-types="page,post,.." ..]**
-* Sitemap Custom Colors [NEW]
+* Sitemap Custom Colors **[NEW]** 🔥
 * No Branding Marks 🔥
 * Premium Support
 
@@ -170,6 +170,7 @@ You can also customize your HTML Sitemap by choosing which Post Types to display
 * WooCommerce Gallery for Image Sitemap 🔥
 * Video Sitemap YouTube videos 🔥
 * Video Sitemap Vimeo videos **[NEW]** 🔥
+* Video Sitemap X (Twitter) videos **[NEW]** 🔥
 * Include Custom Post Types
 
 **Advanced Premium Features**
@@ -267,6 +268,10 @@ This section describes how to install the plugin and get it working.
 4. Set Up Page in **Settings -> XML Sitemaps**.
 
 == Changelog ==
+
+= 2.0.7 - 2025-02-23 =
+* Pro Version: Video Sitemap > X (Twitter) video support added
+* WordPress 6.7.2 compatible
 
 = 2.0.6 - 2025-02-10 =
 * **sgg_sitemap_colors** filter added for customizing Sitemap Colors
