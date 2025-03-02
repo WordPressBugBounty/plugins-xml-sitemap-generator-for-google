@@ -24,6 +24,7 @@ class Settings extends Controller {
 	public $authors;
 	public $exclude_posts;
 	public $exclude_terms;
+	public $include_only_terms;
 	public $posts_priority;
 	public $custom_sitemaps  = array();
 	public $additional_pages = array();
@@ -39,6 +40,7 @@ class Settings extends Controller {
 	public $google_news_stocks    = false;
 	public $google_news_exclude;
 	public $google_news_exclude_terms;
+	public $google_news_include_only_terms;
 
 	// Media Sitemap Data Settings
 	public $enable_image_sitemap    = false;

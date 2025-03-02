@@ -5,7 +5,7 @@ Tags: sitemap, xml sitemap, google news, image sitemap, video sitemap, google si
 Requires at least: 5.0
 Requires PHP: 5.6
 Tested up to: 6.7.2
-Stable tag: 2.0.7
+Stable tag: 2.0.8
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -136,6 +136,7 @@ You can also customize your HTML Sitemap by choosing which Post Types to display
 
 * Exclude Pages, Posts, Custom Posts from Sitemap
 * Exclude Categories and Tags from Sitemap 🔥
+* Include only selected Categories & Tags **[NEW]**
 * HTML Sitemap 🔥
 * Single Post/Page Custom Sitemap Options: 🔥
 -- Exclude from Sitemap
@@ -161,6 +162,7 @@ You can also customize your HTML Sitemap by choosing which Post Types to display
 * Stock Tickers 🔥
 * Exclude Posts and Custom Posts
 * Exclude Categories and Tags 🔥
+* Include only selected Categories & Tags **[NEW]**
 
 **Media Sitemaps Premium Features**
 
@@ -268,6 +270,10 @@ This section describes how to install the plugin and get it working.
 4. Set Up Page in **Settings -> XML Sitemaps**.
 
 == Changelog ==
+
+= 2.0.8 - 2025-03-02 =
+* Pro Version: XML Sitemaps > Include only selected Categories & Tags feature added
+* Pro Version: Google News > Include only selected Categories & Tags feature added
 
 = 2.0.7 - 2025-02-23 =
 * Pro Version: Video Sitemap > X (Twitter) video support added
