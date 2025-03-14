@@ -95,6 +95,9 @@ class Dashboard extends Controller {
 			return;
 		}
 
+		// Clear Media Sitemap Cache on every save
+		MediaSitemap::delete_all_cache();
+
 		// Clear Sitemaps Cache
 		if ( ! empty( $_POST['clear_cache'] ) ) {
 			Cache::clear();
@@ -192,6 +195,7 @@ class Dashboard extends Controller {
 		$settings->enable_video_sitemap    = sanitize_text_field( $_POST['enable_video_sitemap'] ?? 0 );
 		$settings->image_sitemap_url       = sanitize_text_field( $_POST['image_sitemap_url'] ?? $settings->image_sitemap_url );
 		$settings->video_sitemap_url       = sanitize_text_field( $_POST['video_sitemap_url'] ?? $settings->video_sitemap_url );
+		$settings->hide_image_previews     = sanitize_text_field( $_POST['hide_image_previews'] ?? 0 );
 		$settings->image_mime_types        = apply_filters( 'sanitize_post_array', $_POST['image_mime_types'] ?? $settings->image_mime_types );
 		$settings->youtube_api_key         = sanitize_text_field( $_POST['youtube_api_key'] ?? $settings->youtube_api_key );
 		$settings->vimeo_api_key           = sanitize_text_field( $_POST['vimeo_api_key'] ?? $settings->vimeo_api_key );

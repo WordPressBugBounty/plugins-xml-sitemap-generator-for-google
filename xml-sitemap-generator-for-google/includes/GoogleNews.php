@@ -101,11 +101,9 @@ class GoogleNews extends Sitemap {
 	            posts.ID,
 				posts.post_title,
 				posts.post_name,
-				posts.post_parent,
 				posts.post_type,
 				posts.post_date,
-				posts.post_date_gmt,
-				posts.comment_count
+				posts.post_date_gmt
 				FROM $wpdb->posts as posts
 				$terms_join_sql
 				$multilingual_sql

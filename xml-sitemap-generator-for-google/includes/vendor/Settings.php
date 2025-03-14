@@ -47,6 +47,7 @@ class Settings extends Controller {
 	public $enable_video_sitemap    = false;
 	public $image_sitemap_url       = 'image-sitemap.xml';
 	public $video_sitemap_url       = 'video-sitemap.xml';
+	public $hide_image_previews     = false;
 	public $image_mime_types        = array(
 		'image/jpeg' => true,
 		'image/png'  => true,

@@ -22,7 +22,11 @@ class Sitemap extends Controller {
 	 */
 	public function show_sitemap( $template, $is_xml = true, $inner_sitemap = null, $current_page = null ) {
 		if ( sgg_is_sitemap_index( $template, $this->settings ) && ! empty( $inner_sitemap ) ) {
-			$template = 'inner-sitemap';
+			if ( in_array( $template, array( ImageSitemap::$template, VideoSitemap::$template ) ) ) {
+				$template .= '-inner-sitemap';
+			} else {
+				$template = 'inner-sitemap';
+			}
 		}
 
 		$sitemap = $this->generate_sitemap( $template, $is_xml, $inner_sitemap, $current_page );
@@ -96,7 +100,7 @@ class Sitemap extends Controller {
 	/**
 	 * Get Sitemap Table by Template
 	 */
-	public static function get_sitemap_table( $template = 'sitemap' ) {
+	public static function get_sitemap_table( $template = 'sitemap', $args = array() ) {
 		switch ( $template ) {
 			case GoogleNews::$template:
 				$table = 'google-news';
@@ -107,10 +111,8 @@ class Sitemap extends Controller {
 			case VideoSitemap::$template:
 				$table = 'video-sitemap';
 				break;
-			case MultilingualSitemap::$template:
-				$table = 'sitemap-index';
-				break;
 			case 'sitemap-index':
+			case MultilingualSitemap::$template:
 				$table = 'sitemap-index';
 				break;
 			default:
@@ -118,7 +120,7 @@ class Sitemap extends Controller {
 				break;
 		}
 
-		load_template( GRIM_SG_PATH . "/templates/xsl/tables/{$table}.php", false );
+		load_template( GRIM_SG_PATH . "/templates/xsl/tables/{$table}.php", false, $args );
 	}
 
 	/**
@@ -172,6 +174,7 @@ class Sitemap extends Controller {
 		if ( $this->settings->home->include && ! $this->settings->page->include ) {
 			$this->add_home();
 		}
+
 		if ( sgg_is_sitemap_index( $template, $this->settings ) ) {
 			$current_page = ! empty( $current_page ) ? intval( $current_page ) - 1 : $current_page;
 
@@ -290,18 +293,22 @@ class Sitemap extends Controller {
 			$this->add_home();
 		}
 
+		$sql_extra_select = '';
 		$sql_post_types   = "('" . implode( "','", $post_types ) . "')";
 		$multilingual_sql = $this->multilingual_sql( $post_types );
 		$where_clause     = ! empty( $multilingual_sql ) ? 'AND ' : 'WHERE ';
 
+		if ( sgg_pro_enabled() && ! empty( $this->settings->posts_priority ) ) {
+			$sql_extra_select .= ', posts.comment_count';
+		}
+
 		$sql = "SELECT
 	            posts.ID,
 				posts.post_name,
-				posts.post_parent,
 				posts.post_type,
 				posts.post_date,
-				posts.post_modified,
-				posts.comment_count
+				posts.post_modified
+				$sql_extra_select
 				FROM $wpdb->posts as posts
 				$terms_join_sql
 				$multilingual_sql

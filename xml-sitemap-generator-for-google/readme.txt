@@ -5,11 +5,11 @@ Tags: sitemap, xml sitemap, google news, image sitemap, video sitemap, google si
 Requires at least: 5.0
 Requires PHP: 5.6
 Tested up to: 6.7.2
-Stable tag: 2.0.8
+Stable tag: 2.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Greatly improves your site's SEO 🚀 with special XML Sitemaps, HTML Sitemaps, Media Sitemaps and Google News.
+Greatly improves your site's SEO 🚀 with special XML Sitemaps, HTML Sitemap, Image Sitemap, Video Sitemap and Google News.
 
 == Description ==
 
@@ -106,8 +106,10 @@ Here is a short list of Google XML Sitemap plugin features.
 
 * Image Sitemap 🔥
 * Video Sitemap 🔥
+* Multiple Sitemaps by Sitemap Index **[NEW]** 🔥
+* Hide Image Previews **[NEW]**
 * Include Pages & Posts
-* Custom Image & Video Sitemaps URL 🔥
+* Custom Image & Video Sitemaps URLs
 
 **Advanced Features**
 
@@ -270,6 +272,15 @@ This section describes how to install the plugin and get it working.
 4. Set Up Page in **Settings -> XML Sitemaps**.
 
 == Changelog ==
+
+= 2.1.0 - 2025-03-14 =
+* Image Sitemap: Multiple Sitemaps (Per Paged) by Sitemap Index feature added
+* Image Sitemap: Hide Image Previews feature added
+* Video Sitemap: Multiple Sitemaps (Per Paged) by Sitemap Index feature added
+* Media Sitemaps: Database Queries optimized
+* Media Sitemaps: Smart Caching feature implemented for faster loading
+* **xml_sitemap_disable_post_meta_fields** filter added for disabling Post Meta Fields
+* **xml_sitemap_disable_post_meta__exclude_sitemap**, **xml_sitemap_disable_post_meta__priority**, **xml_sitemap_disable_post_meta__frequency** filters added for disabling Post Meta Fields
 
 = 2.0.8 - 2025-03-02 =
 * Pro Version: XML Sitemaps > Include only selected Categories & Tags feature added

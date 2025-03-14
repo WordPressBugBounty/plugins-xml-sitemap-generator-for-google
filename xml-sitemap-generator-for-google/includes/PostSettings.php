@@ -4,6 +4,11 @@ namespace GRIM_SG;
 
 class PostSettings {
 	public function __construct() {
+		// Disable Meta Box fields.
+		if ( apply_filters( 'xml_sitemap_disable_post_meta_fields', false ) ) {
+			return;
+		}
+
 		add_action( 'init', array( $this, 'register_post_meta' ) );
 		add_action( 'enqueue_block_editor_assets', array( $this, 'register_plugin_sidebar_block' ) );
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_box' ) );
@@ -64,7 +69,10 @@ class PostSettings {
 				'sitemap-settings',
 				'sitemapSettings',
 				array(
-					'isProEnabled' => sgg_pro_enabled(),
+					'isProEnabled'       => sgg_pro_enabled(),
+					'isExcludeEnabled'   => intval( ! apply_filters( 'xml_sitemap_disable_post_meta__exclude_sitemap', false ) ),
+					'isPriorityEnabled'  => intval( ! apply_filters( 'xml_sitemap_disable_post_meta__sitemap_priority', false ) ),
+					'isFrequencyEnabled' => intval( ! apply_filters( 'xml_sitemap_disable_post_meta__sitemap_frequency', false ) ),
 				)
 			);
 		}
