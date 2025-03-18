@@ -4,11 +4,6 @@ namespace GRIM_SG;
 
 class PostSettings {
 	public function __construct() {
-		// Disable Meta Box fields.
-		if ( apply_filters( 'xml_sitemap_disable_post_meta_fields', false ) ) {
-			return;
-		}
-
 		add_action( 'init', array( $this, 'register_post_meta' ) );
 		add_action( 'enqueue_block_editor_assets', array( $this, 'register_plugin_sidebar_block' ) );
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_box' ) );
@@ -82,6 +77,11 @@ class PostSettings {
 	 * Registers Post Metabox.
 	 */
 	public function add_meta_box() {
+		// Disable Meta Box fields.
+		if ( apply_filters( 'xml_sitemap_disable_post_meta_fields', false ) ) {
+			return;
+		}
+
 		$public_post_types = get_post_types(
 			array(
 				'public' => true,

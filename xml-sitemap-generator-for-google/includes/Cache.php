@@ -28,8 +28,8 @@ class Cache extends Controller {
 		$this->current_page  = $current_page ?? '';
 	}
 
-	public function set( $urls ) {
-		$expiration  = self::get_expiration( $this->get_settings() );
+	public function set( $urls, $lifetime = false ) {
+		$expiration  = $lifetime ? 0 : self::get_expiration( $this->get_settings() );
 		$option_name = self::$prefix . $this->sitemap;
 
 		if ( $this->inner_sitemap ) {
@@ -39,7 +39,9 @@ class Cache extends Controller {
 				$cached_urls = array();
 			}
 
-			$cached_urls[ $this->inner_sitemap . $this->current_page ] = $urls[ $this->inner_sitemap ];
+			if ( ! empty( $urls[ $this->inner_sitemap ] ) ) {
+				$cached_urls[ $this->inner_sitemap . $this->current_page ] = $urls[ $this->inner_sitemap ];
+			}
 
 			$urls = $cached_urls;
 		}

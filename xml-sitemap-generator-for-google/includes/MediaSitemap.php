@@ -27,6 +27,7 @@ abstract class MediaSitemap extends Sitemap {
 		global $wpdb;
 
 		$post_types = array( 'page', 'post' );
+		$template   = sgg_maybe_remove_inner_suffix( $template );
 		$cache      = new Cache( "media-$template" );
 
 		// Set URLs from cache if available.
@@ -135,7 +136,7 @@ abstract class MediaSitemap extends Sitemap {
 			}
 
 			// Cache the collected URLs.
-			$cache->set( $this->urls );
+			$cache->set( $this->urls, true );
 
 			// Save the new markers for the latest post processed.
 			update_option( $this->get_option_name( $template, 'latest_mod_time' ), $last_mod_time );
@@ -152,10 +153,14 @@ abstract class MediaSitemap extends Sitemap {
 
 		if ( is_array( $this->urls ) ) {
 			$this->urls = array_reverse( $this->urls );
+		} else {
+			$this->urls = array();
+
+			// Delete cache if no URLs are found
+			self::delete_all_cache();
 		}
 
 		// Check Index Sitemap
-		$template = sgg_maybe_remove_inner_suffix( $template );
 		$limit          = $this->settings->links_per_page ?? 1000;
 		$has_many_links = count( $this->urls ) > $limit;
 
@@ -171,7 +176,7 @@ abstract class MediaSitemap extends Sitemap {
 					str_replace( '-sitemap', '', $template ) =>
 						array_map(
 							function ( $chunk ) {
-								return $chunk[0];
+								return $chunk[0] ?? array();
 							}, array_chunk( $this->urls, $limit )
 						)
 				);
@@ -189,7 +194,9 @@ abstract class MediaSitemap extends Sitemap {
 		delete_option( 'sgg_video-sitemap_latest_mod_time' );
 		delete_option( 'sgg_video-sitemap_latest_post_id' );
 
+		Cache::delete( 'image-sitemap' );
 		Cache::delete( 'media-image-sitemap' );
+		Cache::delete( 'video-sitemap' );
 		Cache::delete( 'media-video-sitemap' );
 	}
 }
