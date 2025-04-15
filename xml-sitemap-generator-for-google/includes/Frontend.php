@@ -70,7 +70,7 @@ class Frontend extends Controller {
 				( new GoogleNews() )->show_sitemap( GoogleNews::$template );
 			} elseif ( $is_image_sitemap || 'image' === $inner_sitemap ) {
 				( new ImageSitemap() )->show_sitemap( ImageSitemap::$template, true, $inner_sitemap, $current_page );
-			} elseif ( $is_video_sitemap || 'video' === $inner_sitemap) {
+			} elseif ( $is_video_sitemap || 'video' === $inner_sitemap ) {
 				( new VideoSitemap() )->show_sitemap( VideoSitemap::$template, true, $inner_sitemap, $current_page );
 			} elseif ( $is_multilingual ) {
 				( new MultilingualSitemap() )->show_sitemap( MultilingualSitemap::$template );
