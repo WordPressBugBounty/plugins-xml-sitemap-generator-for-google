@@ -57,7 +57,7 @@ abstract class MediaSitemap extends Sitemap {
 		$last_id          = get_option( $this->get_option_name( $template, 'latest_post_id' ), 0 );
 		$limit            = 5000;
 
-		while (true) {
+		while ( true ) {
 			$posts = $wpdb->get_results(
 				$wpdb->prepare(
 					"SELECT posts.ID, posts.post_name, posts.post_content, posts.post_type, posts.post_modified
@@ -170,15 +170,16 @@ abstract class MediaSitemap extends Sitemap {
 		if ( sgg_is_sitemap_index( $template, $this->settings ) && $has_many_links ) {
 			if ( ! empty( $inner_sitemap ) && ! empty( $current_page ) ) {
 				$chunks     = array_chunk( $this->urls, $limit );
-				$this->urls = $chunks[$current_page - 1] ?? array();
+				$this->urls = $chunks[ $current_page - 1 ] ?? array();
 			} else {
 				$this->urls = array(
 					str_replace( '-sitemap', '', $template ) =>
-						array_map(
-							function ( $chunk ) {
-								return $chunk[0] ?? array();
-							}, array_chunk( $this->urls, $limit )
-						)
+					array_map(
+						function ( $chunk ) {
+							return $chunk[0] ?? array();
+						},
+						array_chunk( $this->urls, $limit )
+					),
 				);
 			}
 		}

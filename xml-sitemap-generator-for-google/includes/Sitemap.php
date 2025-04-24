@@ -305,6 +305,7 @@ class Sitemap extends Controller {
 		$sql = "SELECT
 	            posts.ID,
 				posts.post_name,
+				posts.post_parent,
 				posts.post_type,
 				posts.post_date,
 				posts.post_modified

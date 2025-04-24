@@ -101,6 +101,7 @@ class GoogleNews extends Sitemap {
 	            posts.ID,
 				posts.post_title,
 				posts.post_name,
+				posts.post_parent,
 				posts.post_type,
 				posts.post_date,
 				posts.post_date_gmt
@@ -122,7 +123,7 @@ class GoogleNews extends Sitemap {
 				$this->add_url(
 					get_permalink( $post ),
 					$post->ID,
-					$post->post_title,
+					apply_filters( 'xml_sitemap_google_news_title', $post->post_title, $post->ID ),
 					gmdate( DATE_W3C, strtotime( $post_date ) ),
 					$post->post_type
 				);

@@ -53,7 +53,19 @@ class VideoSitemap extends MediaSitemap {
 					if ( ! empty( $twitter_data ) ) {
 						$videos[] = $twitter_data;
 					}
-				}
+				} /*elseif ( $this->is_instagram_url( $video ) ) {
+					$instagram_data = Video_Sitemap::get_instagram_data( $video, $this->settings->enable_video_api_cache );
+
+					if ( ! empty( $instagram_data ) ) {
+						$videos[] = $instagram_data;
+					}
+				} elseif ( $this->is_tiktok_url( $video ) ) {
+					$tiktok_data = Video_Sitemap::get_tiktok_data( $video, $this->settings->enable_video_api_cache );
+
+					if ( ! empty( $tiktok_data ) ) {
+						$videos[] = $tiktok_data;
+					}
+				}*/
 			}
 		}
 
@@ -70,9 +82,18 @@ class VideoSitemap extends MediaSitemap {
 		$extension  = end( $extensions );
 
 		return 'video' === wp_ext2type( $extension )
-			|| ( sgg_pro_enabled() && ( $this->is_youtube_url( $value ) || $this->is_vimeo_url( $value ) || $this->is_twitter_url( $value ) ) );
+			|| ( sgg_pro_enabled() && (
+				$this->is_youtube_url( $value ) ||
+				$this->is_vimeo_url( $value ) ||
+				$this->is_twitter_url( $value ) /*||
+				$this->is_instagram_url( $value ) ||
+				$this->is_tiktok_url( $value )*/
+			) );
 	}
 
+	/**
+	 * Detect a YouTube video URL
+	 */
 	public function is_youtube_url( $url ) {
 		return (
 			false !== strpos( $url, 'https://www.youtube.com/embed/' ) ||
@@ -84,6 +105,9 @@ class VideoSitemap extends MediaSitemap {
 		);
 	}
 
+	/**
+	 * Detect a Vimeo video URL
+	 */
 	public function is_vimeo_url( $url ) {
 		return (
 			false !== strpos( $url, 'https://vimeo.com/' ) ||
@@ -91,7 +115,25 @@ class VideoSitemap extends MediaSitemap {
 		);
 	}
 
+	/**
+	 * Detect a Twitter post URL
+	 */
 	public function is_twitter_url( $url ) {
 		return preg_match( '#https?://(?:www\.)?(?:twitter\.com|x\.com)/[^/]+/status/(\d+)#i', $url );
+	}
+
+	/**
+	 * Detect an Instagram post, Reel or IGTV URL
+	 */
+	public function is_instagram_url( $url ) {
+		return preg_match( '#https?://(?:www\.)?instagram\.com/(?:p|reel|tv)/([A-Za-z0-9_-]+)/?#i', $url );
+	}
+
+	/**
+	 * Detect a TikTok video URL (full or “vm.” shortlink)
+	 */
+	public function is_tiktok_url( $url ): bool {
+		return (bool) preg_match( '~^https?://(?:www\.|m\.)?tiktok\.com/@[A-Za-z0-9._-]+/video/\d+(?:[/?].*)?$~i', $url )
+			|| (bool) preg_match( '~^https?://vm\.tiktok\.com/[A-Za-z0-9_-]+/?$~i', $url );
 	}
 }
