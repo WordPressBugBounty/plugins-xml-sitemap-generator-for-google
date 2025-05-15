@@ -19,7 +19,8 @@ settings_errors( Dashboard::$slug );
 						<nav class="nav-tab-wrapper">
 							<a href="#" class="nav-tab nav-tab-active" data-id="general"><?php esc_html_e( 'General', 'xml-sitemap-generator-for-google' ); ?></a>
 							<a href="#" class="nav-tab" data-id="google-news"><?php esc_html_e( 'Google News', 'xml-sitemap-generator-for-google' ); ?></a>
-							<a href="#" class="nav-tab" data-id="media-sitemaps"><?php esc_html_e( 'Media Sitemaps', 'xml-sitemap-generator-for-google' ); ?></a>
+							<a href="#" class="nav-tab" data-id="image-sitemap"><?php esc_html_e( 'Image Sitemap', 'xml-sitemap-generator-for-google' ); ?></a>
+							<a href="#" class="nav-tab" data-id="video-sitemap"><?php esc_html_e( 'Video Sitemap', 'xml-sitemap-generator-for-google' ); ?></a>
 							<a href="#" class="nav-tab" data-id="advanced"><?php esc_html_e( 'Advanced', 'xml-sitemap-generator-for-google' ); ?></a>
 						</nav>
 
@@ -82,13 +83,18 @@ settings_errors( Dashboard::$slug );
 
 							<div class="section">
 								<!-- Image Sitemap -->
-								<?php Dashboard::render( 'sections/media-sitemaps/image-sitemap.php', $args ); ?>
-
-								<!-- Video Sitemap -->
-								<?php Dashboard::render( 'sections/media-sitemaps/video-sitemap.php', $args ); ?>
+								<?php Dashboard::render( 'sections/image-sitemap/general-settings.php', $args ); ?>
 
 								<!-- Content -->
-								<?php Dashboard::render( 'sections/media-sitemaps/content.php', $args ); ?>
+								<?php Dashboard::render( 'sections/image-sitemap/content.php', $args ); ?>
+							</div>
+
+							<div class="section">
+								<!-- Video Sitemap -->
+								<?php Dashboard::render( 'sections/video-sitemap/general-settings.php', $args ); ?>
+
+								<!-- Content -->
+								<?php Dashboard::render( 'sections/video-sitemap/content.php', $args ); ?>
 							</div>
 
 							<div class="section">

@@ -4,8 +4,8 @@ Donate link: https://wpgrim.com/google-xml-sitemaps-generator-pro/?utm_source=wo
 Tags: sitemap, xml sitemap, google news, image sitemap, video sitemap, google sitemaps, xml, google, seo, sitemaps
 Requires at least: 5.0
 Requires PHP: 5.6
-Tested up to: 6.8
-Stable tag: 2.1.4
+Tested up to: 6.8.1
+Stable tag: 2.1.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -90,6 +90,7 @@ Here is a short list of Google XML Sitemap plugin features.
 * FooGallery compatible
 * Yoast SEO compatible with noindex
 * Rank Math SEO compatible with noindex
+* SEO Framework compatible
 * User-Friendly Interface
 * No Coding required
 
@@ -102,14 +103,18 @@ Here is a short list of Google XML Sitemap plugin features.
 * Polylang compatible
 * TranslatePress compatible
 
-**Media Sitemaps Features**
+**Image Sitemap Features**
 
-* Image Sitemap 🔥
-* Video Sitemap 🔥
-* Multiple Sitemaps by Sitemap Index **[NEW]** 🔥
 * Hide Image Previews **[NEW]**
+* Multiple Sitemaps by Sitemap Index
 * Include Pages & Posts
-* Custom Image & Video Sitemaps URLs
+* Custom Image Sitemaps URLs
+
+**Video Sitemap Features**
+
+* Multiple Sitemaps by Sitemap Index
+* Include Pages & Posts
+* Custom Video Sitemaps URLs
 
 **Advanced Features**
 
@@ -166,15 +171,19 @@ You can also customize your HTML Sitemap by choosing which Post Types to display
 * Exclude Categories and Tags 🔥
 * Include only selected Categories & Tags **[NEW]**
 
-**Media Sitemaps Premium Features**
+**Image Sitemap Premium Features**
 
 * Image Sitemap MIME Types
 * Exclude Broken (404) Images 🔥
-* Featured Images for Image Sitemap
-* WooCommerce Gallery for Image Sitemap 🔥
-* Video Sitemap YouTube videos 🔥
-* Video Sitemap Vimeo videos **[NEW]** 🔥
-* Video Sitemap X (Twitter) videos **[NEW]** 🔥
+* Include Featured Images
+* Include WooCommerce Gallery 🔥
+* Include Custom Post Types
+
+**Video Sitemap Premium Features**
+
+* YouTube videos 🔥
+* Vimeo videos **[NEW]** 🔥
+* X (Twitter) videos **[NEW]** 🔥
 * Include Custom Post Types
 
 **Advanced Premium Features**
@@ -272,6 +281,14 @@ This section describes how to install the plugin and get it working.
 4. Set Up Page in **Settings -> XML Sitemaps**.
 
 == Changelog ==
+
+= 2.1.5 - 2025-05-15 =
+* SEO Framework noindex Pages, Posts, and Custom Posts excluded from Sitemap
+* SEO Framework noindex Categories and Taxonomies excluded from Sitemap
+* Image Sitemap: AVIF image support added
+* Google News: SEO Framework custom title support added
+* Image Sitemap & Video Sitemap settings separatedy
+* WordPress 6.8.1 compatible
 
 = 2.1.4 - 2025-04-24 =
 * Google News: **xml_sitemap_google_news_title** filter added for customizing Title

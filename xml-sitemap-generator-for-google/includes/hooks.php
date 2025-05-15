@@ -74,6 +74,14 @@ function sgg_exclude_noindex_posts( $value, $post_id ) {
 		}
 	}
 
+	// SEO Framework noindex
+	if ( defined( 'THE_SEO_FRAMEWORK_VERSION' ) ) {
+		$seo_framework_noindex = get_post_meta( $post_id, '_genesis_noindex', true );
+		if ( '1' === $seo_framework_noindex ) {
+			return false;
+		}
+	}
+
 	return $value;
 }
 add_filter( 'xml_sitemap_include_post', 'sgg_exclude_noindex_posts', 99, 2 );
@@ -94,6 +102,14 @@ function sgg_exclude_noindex_terms( $value, $term_id, $taxonomy ) {
 	if ( class_exists( 'RankMath' ) ) {
 		$rank_math_robots = get_term_meta( $term_id, 'rank_math_robots', true );
 		if ( ! empty( $rank_math_robots ) && is_array( $rank_math_robots ) && in_array( 'noindex', $rank_math_robots, true ) ) {
+			return true;
+		}
+	}
+
+	// SEO Framework noindex
+	if ( defined( 'THE_SEO_FRAMEWORK_VERSION' ) ) {
+		$seo_framework_meta = get_term_meta( $term_id, 'autodescription-term-settings', true );
+		if ( ! empty( $seo_framework_meta ) && isset( $seo_framework_meta['noindex'] ) && 1 === $seo_framework_meta['noindex'] ) {
 			return true;
 		}
 	}
@@ -173,3 +189,19 @@ add_action( 'transition_post_status', 'sgg_clear_media_sitemap_cache', 10, 3 );
  * Disable default WordPress Sitemaps.
  */
 add_filter( 'wp_sitemaps_enabled', '__return_false' );
+
+/**
+ * Google New Title Filter
+ */
+function sgg_google_news_title( $title, $post_id ) {
+	// SEO Framework title
+	if ( defined( 'THE_SEO_FRAMEWORK_VERSION' ) ) {
+		$seo_title = get_post_meta( $post_id, '_genesis_title', true );
+		if ( ! empty( $seo_title ) ) {
+			$title = $seo_title;
+		}
+	}
+
+	return $title;
+}
+add_filter( 'xml_sitemap_google_news_title', 'sgg_google_news_title', 10, 2 );

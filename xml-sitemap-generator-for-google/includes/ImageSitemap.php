@@ -11,6 +11,7 @@ class ImageSitemap extends MediaSitemap {
 		'image/bmp',
 		'image/gif',
 		'image/webp',
+		'image/avif',
 	);
 
 	/**
