@@ -7,6 +7,7 @@ class PTSettings {
 	public $priority      = 3;
 	public $frequency     = 'weekly';
 	public $google_news   = false;
+	public $media_sitemap = null; // TODO: Support old Media Sitemap settings
 	public $image_sitemap = true;
 	public $video_sitemap = true;
 
