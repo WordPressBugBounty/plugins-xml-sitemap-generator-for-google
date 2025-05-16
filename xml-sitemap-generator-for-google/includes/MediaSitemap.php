@@ -37,7 +37,7 @@ abstract class MediaSitemap extends Sitemap {
 		}
 
 		// TODO: Remove this after 2.3.0 release. Use old settings instead of patch.
-		if ( isset( $this->settings->page->media_sitemap ) ) {
+		if ( property_exists( $this->settings->page, 'media_sitemap')  ) {
 			$media_sitemap_key = 'media_sitemap';
 		} else {
 			$media_sitemap_key = 'video-sitemap' === $template ? 'video_sitemap' : 'image_sitemap';
