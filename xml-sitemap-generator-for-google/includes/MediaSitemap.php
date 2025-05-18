@@ -36,22 +36,17 @@ abstract class MediaSitemap extends Sitemap {
 			$this->urls = $cached_urls;
 		}
 
-		// TODO: Remove this after 2.3.0 release. Use old settings instead of patch.
-		if ( property_exists( $this->settings->page, 'media_sitemap')  ) {
-			$media_sitemap_key = 'media_sitemap';
-		} else {
-			$media_sitemap_key = 'video-sitemap' === $template ? 'video_sitemap' : 'image_sitemap';
-		}
+		$sitemap_key = 'video-sitemap' === $template ? 'video_sitemap' : 'image_sitemap';
 
 		foreach ( $post_types as $key => $post_type ) {
-			if ( isset( $this->settings->{$post_type}->{$media_sitemap_key} ) && ! $this->settings->{$post_type}->{$media_sitemap_key} ) {
+			if ( isset( $this->settings->{$post_type}->{$sitemap_key} ) && ! $this->settings->{$post_type}->{$sitemap_key} ) {
 				unset( $post_types[ $key ] );
 			}
 		}
 
 		if ( sgg_pro_enabled() ) {
 			foreach ( $this->get_cpt() as $cpt ) {
-				if ( ! empty( $this->settings->cpt[ $cpt ] ) && ! empty( $this->settings->cpt[ $cpt ]->{$media_sitemap_key} ) ) {
+				if ( ! empty( $this->settings->cpt[ $cpt ] ) && ! empty( $this->settings->cpt[ $cpt ]->{$sitemap_key} ) ) {
 					$post_types[] = $cpt;
 				}
 			}
