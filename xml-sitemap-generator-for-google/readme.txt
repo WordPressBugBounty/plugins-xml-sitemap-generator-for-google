@@ -5,7 +5,7 @@ Tags: sitemap, xml sitemap, google news, image sitemap, video sitemap, google si
 Requires at least: 5.0
 Requires PHP: 5.6
 Tested up to: 6.8.1
-Stable tag: 2.1.8
+Stable tag: 2.1.9
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -78,9 +78,10 @@ Here is a short list of Google XML Sitemap plugin features.
 * Automatically add Sitemaps to robots.txt
 * Links Per Page for Sitemap Index 🔥
 * Static Sitemap File detector
-* Toolbar with most helpful Actions & Links 🔥
+* Toolbar with most helpful Actions & Links
 * Disables auto-generated WP Sitemaps
 * Setup Wizard 🔥
+* WP-CLI commands for Sitemap generation **[NEW]** 🔥
 * Multisite Network compatible
 * WooCommerce compatible
 * Multilingual Sitemap 🔥
@@ -268,9 +269,17 @@ function my_sitemap_post_priority( $priority, $post_id ) {
 }
 ``
 
-= How to add Custom Sitemaps to Sitemap Index? =
+= How to generate Sitemap using CLI? =
 
-You can add Custom Sitemap URLs to Sitemap Index under **Settings > XML Sitemaps > General** tab.
+You can generate Sitemap using CLI command:
+
+``wp sitemap generate``
+
+You can generate a specific Sitemap type:
+
+``wp sitemap generate --template=image-sitemap``
+
+Allowed Sitemap types are **sitemap**, **image-sitemap**, **video-sitemap**, and **google-news**. Default template is **sitemap**.
 
 == Installation ==
 This section describes how to install the plugin and get it working.
@@ -281,6 +290,10 @@ This section describes how to install the plugin and get it working.
 4. Set Up Page in **Settings -> XML Sitemaps**.
 
 == Changelog ==
+
+= 2.1.9 - 2025-05-22 =
+* Sitemap Generator CLI command added
+* **template_redirect** action replaced with **parse_request** action for early execution of Sitemaps
 
 = 2.1.8 - 2025-05-18 =
 * Old media_sitemap Content checks removed

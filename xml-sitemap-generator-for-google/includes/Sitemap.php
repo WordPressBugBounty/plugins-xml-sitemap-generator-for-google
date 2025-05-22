@@ -9,9 +9,9 @@ use GRIM_SG\Vendor\SitemapGenerator;
 class Sitemap extends Controller {
 	public static $template = 'sitemap';
 
-	protected $urls = array();
+	public $urls = array();
 
-	protected $settings;
+	public $settings;
 
 	public function __construct() {
 		$this->settings = $this->get_settings();
@@ -22,7 +22,7 @@ class Sitemap extends Controller {
 	 */
 	public function show_sitemap( $template, $is_xml = true, $inner_sitemap = null, $current_page = null ) {
 		if ( sgg_is_sitemap_index( $template, $this->settings ) && ! empty( $inner_sitemap ) ) {
-			if ( in_array( $template, array( ImageSitemap::$template, VideoSitemap::$template ) ) ) {
+			if ( in_array( $template, array( ImageSitemap::$template, VideoSitemap::$template ), true ) ) {
 				$template .= '-inner-sitemap';
 			} else {
 				$template = 'inner-sitemap';

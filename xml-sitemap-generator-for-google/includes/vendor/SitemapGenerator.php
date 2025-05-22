@@ -338,8 +338,8 @@ class SitemapGenerator {
 
 		$is_media_index = $is_media_template && $is_sitemap_index;
 		if ( ! empty( $settings->sitemap_view ) && ( ( 'sitemap' === $template && count( $this->sitemaps ) > 0 ) || $is_media_index ) ) {
-			$stylesheet_url   = sgg_get_sitemap_url( "{$stylesheet_path}?template=sitemap-index", 'sitemap_xsl=sitemap-index', false );
-			$stylesheet_url   = strtok( $stylesheet_url, '&' ); // remove & query string
+			$stylesheet_url = sgg_get_sitemap_url( "{$stylesheet_path}?template=sitemap-index", 'sitemap_xsl=sitemap-index', false );
+			$stylesheet_url = strtok( $stylesheet_url, '&' ); // remove & query string
 
 			$dom = $this->create_sitemap_dom( $stylesheet_url );
 
@@ -440,10 +440,12 @@ class SitemapGenerator {
 				$this->sitemapFullURL = $this->baseURL . $this->sitemapFileName;
 			}
 
-			$this->sitemaps[0] = array(
-				$this->sitemapFileName,
-				$this->sitemaps[0],
-			);
+			if ( ! empty( $this->sitemaps[0] ) ) {
+				$this->sitemaps[0] = array(
+					$this->sitemapFileName,
+					$this->sitemaps[0],
+				);
+			}
 		}
 	}
 
