@@ -5,7 +5,7 @@ Tags: sitemap, xml sitemap, google news, image sitemap, video sitemap, google si
 Requires at least: 5.0
 Requires PHP: 5.6
 Tested up to: 6.8.1
-Stable tag: 2.1.9
+Stable tag: 2.1.10
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -273,11 +273,11 @@ function my_sitemap_post_priority( $priority, $post_id ) {
 
 You can generate Sitemap using CLI command:
 
-``wp sitemap generate``
+`wp sitemap generate`
 
 You can generate a specific Sitemap type:
 
-``wp sitemap generate --template=image-sitemap``
+`wp sitemap generate --template=image-sitemap`
 
 Allowed Sitemap types are **sitemap**, **image-sitemap**, **video-sitemap**, and **google-news**. Default template is **sitemap**.
 
@@ -290,6 +290,11 @@ This section describes how to install the plugin and get it working.
 4. Set Up Page in **Settings -> XML Sitemaps**.
 
 == Changelog ==
+
+= 2.1.10 - 2025-06-17 =
+* Media Sitemap: BeeTheme compatibility added, as it uses post_meta for storing content
+* Media Sitemap: Post Parent URL issue fixed
+* Media Sitemap: Noindex Posts excluded from Image & Video Sitemaps
 
 = 2.1.9 - 2025-05-22 =
 * Sitemap Generator CLI command added

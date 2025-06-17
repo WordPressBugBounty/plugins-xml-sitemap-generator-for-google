@@ -78,13 +78,13 @@ class GoogleNews extends Sitemap {
 		$terms_where_sql = '';
 
 		if ( ! empty( $include_term_ids ) ) {
-			$terms_join_sql  = "INNER JOIN (
+			$terms_join_sql = "INNER JOIN (
 				SELECT DISTINCT tr.object_id
 				FROM {$wpdb->term_relationships} tr
 				INNER JOIN {$wpdb->term_taxonomy} tt ON tt.term_taxonomy_id = tr.term_taxonomy_id
 				WHERE tt.term_id IN (" . implode( ',', array_unique( $include_term_ids ) ) . ')
 			) included_posts ON posts.ID = included_posts.object_id';
-		} else if ( ! empty( $exclude_term_ids ) ) {
+		} elseif ( ! empty( $exclude_term_ids ) ) {
 			$terms_join_sql  = "LEFT JOIN (
 				SELECT DISTINCT tr.object_id
 				FROM {$wpdb->term_relationships} tr

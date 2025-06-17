@@ -119,7 +119,7 @@ class Dashboard extends Controller {
 			return;
 		}
 
-		// Clear YouTube Data Cache
+		// Clear Video Data Cache
 		if ( ! empty( $_POST['clear_video_api_cache'] ) && is_callable( 'SGG_PRO\Classes\Video_Data_Cache::delete' ) ) {
 			Video_Data_Cache::delete();
 

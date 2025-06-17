@@ -50,7 +50,7 @@ $settings = $args['settings'] ?? new stdClass();
 		<hr>
 
 		<h3 class="hndle"><?php
-			esc_html_e( 'YouTube Data API', 'xml-sitemap-generator-for-google' );
+			esc_html_e( 'YouTube', 'xml-sitemap-generator-for-google' );
 
 			sgg_show_pro_badge();
 			?></h3>
@@ -94,7 +94,7 @@ $settings = $args['settings'] ?? new stdClass();
 		<hr>
 
 		<h3 class="hndle"><?php
-			esc_html_e( 'Vimeo Data API', 'xml-sitemap-generator-for-google' );
+			esc_html_e( 'Vimeo', 'xml-sitemap-generator-for-google' );
 
 			sgg_show_pro_badge();
 			?></h3>
@@ -144,7 +144,7 @@ $settings = $args['settings'] ?? new stdClass();
 			?></h3>
 
 		<div class="pro-wrapper <?php echo esc_attr( sgg_pro_class() ); ?>">
-			<p class="video-sitemap-depended"><?php esc_html_e( 'Caching API Data improves performance by storing and reusing requested Video data from YouTube & Vimeo API.', 'xml-sitemap-generator-for-google' ); ?></p>
+			<p class="video-sitemap-depended"><?php esc_html_e( 'Caching API Data improves performance by storing and reusing requested Video data from YouTube, Vimeo, and Twitter API.', 'xml-sitemap-generator-for-google' ); ?></p>
 
 			<p>
 				<?php

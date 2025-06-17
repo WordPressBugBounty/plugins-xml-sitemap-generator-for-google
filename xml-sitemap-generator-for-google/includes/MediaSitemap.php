@@ -62,7 +62,7 @@ abstract class MediaSitemap extends Sitemap {
 		while ( true ) {
 			$posts = $wpdb->get_results(
 				$wpdb->prepare(
-					"SELECT posts.ID, posts.post_name, posts.post_content, posts.post_type, posts.post_modified
+					"SELECT posts.ID, posts.post_name, posts.post_parent, posts.post_content, posts.post_type, posts.post_modified
 						FROM {$wpdb->posts} as posts $multilingual_sql $where_clause posts.post_status = 'publish'
 						AND posts.post_type IN $sql_post_types AND posts.post_password = ''
 						AND (posts.post_modified > %s OR (posts.post_modified = %s AND posts.ID > %d))
@@ -81,8 +81,11 @@ abstract class MediaSitemap extends Sitemap {
 
 			// Loop through the posts and add the URLs to the sitemap.
 			foreach ( $posts as $post ) {
-				$content = $post->post_content;
+				if ( ! apply_filters( 'xml_sitemap_include_post', true, $post->ID ) ) {
+					continue;
+				}
 
+				$content = apply_filters( 'xml_media_sitemap_post_content', $post->post_content, $post );
 				if ( ! empty( $content ) && preg_match( '/\[.+?\]/im', $content ) ) {
 					preg_match_all( '/\[.+?\]/im', $content, $shortcode_matches );
 
@@ -112,7 +115,7 @@ abstract class MediaSitemap extends Sitemap {
 						$base_url = preg_replace( '/-\d+x\d+(?=\.\w{3,4}$)/', '', $url );
 
 						if ( ! isset( $unique_urls[ $base_url ] ) ) {
-							$unique_urls[ $base_url ] = $url;
+							$unique_urls[ $base_url ] = strtok( $url, '#' );
 						}
 					}
 

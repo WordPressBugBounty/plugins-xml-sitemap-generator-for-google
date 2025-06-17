@@ -26,6 +26,14 @@ class ImageSitemap extends MediaSitemap {
 	}
 
 	public function add_urls( string $url, array $media ): void {
+		// Remove old URL if it exists
+		$this->urls = array_filter(
+			$this->urls,
+			function( $item ) use ( $url ) {
+				return $item[0] !== $url;
+			}
+		);
+
 		$this->urls[] = array(
 			$url, // URL
 			$media, // Images

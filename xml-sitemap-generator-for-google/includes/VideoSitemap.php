@@ -53,23 +53,19 @@ class VideoSitemap extends MediaSitemap {
 					if ( ! empty( $twitter_data ) ) {
 						$videos[] = $twitter_data;
 					}
-				} /*elseif ( $this->is_instagram_url( $video ) ) {
-					$instagram_data = Video_Sitemap::get_instagram_data( $video, $this->settings->enable_video_api_cache );
-
-					if ( ! empty( $instagram_data ) ) {
-						$videos[] = $instagram_data;
-					}
-				} elseif ( $this->is_tiktok_url( $video ) ) {
-					$tiktok_data = Video_Sitemap::get_tiktok_data( $video, $this->settings->enable_video_api_cache );
-
-					if ( ! empty( $tiktok_data ) ) {
-						$videos[] = $tiktok_data;
-					}
-				}*/
+				}
 			}
 		}
 
 		if ( ! empty( $videos ) ) {
+			// Remove old URL if it exists
+			$this->urls = array_filter(
+				$this->urls,
+				function( $item ) use ( $url ) {
+					return $item[0] !== $url;
+				}
+			);
+
 			$this->urls[] = array(
 				$url, // URL
 				$videos, // Videos
@@ -85,9 +81,7 @@ class VideoSitemap extends MediaSitemap {
 			|| ( sgg_pro_enabled() && (
 				$this->is_youtube_url( $value ) ||
 				$this->is_vimeo_url( $value ) ||
-				$this->is_twitter_url( $value ) /*||
-				$this->is_instagram_url( $value ) ||
-				$this->is_tiktok_url( $value )*/
+				$this->is_twitter_url( $value )
 			) );
 	}
 
