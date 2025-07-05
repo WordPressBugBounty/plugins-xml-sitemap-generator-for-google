@@ -5,7 +5,7 @@ Tags: sitemap, xml sitemap, google news, image sitemap, video sitemap, google si
 Requires at least: 5.0
 Requires PHP: 5.6
 Tested up to: 6.8.1
-Stable tag: 2.1.10
+Stable tag: 2.1.11
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -191,6 +191,7 @@ You can also customize your HTML Sitemap by choosing which Post Types to display
 
 * Smart Caching 🔥
 * Minimize Sitemap source code
+* Cron Job **[NEW]** 🔥
 
 ⭐ [Get PRO Version Now](https://wpgrim.com/google-xml-sitemaps-generator-pro/?utm_source=wordpressorg&utm_medium=get_pro&utm_campaign=xml_sitemap)
 
@@ -290,6 +291,13 @@ This section describes how to install the plugin and get it working.
 4. Set Up Page in **Settings -> XML Sitemaps**.
 
 == Changelog ==
+
+= 2.1.11 - 2025-07-05 =
+* Troubleshoot section added to Settings page
+* WP CLI instructions section added to Settings page
+* Pro Version: Cron Job feature added
+* **sgg_sitemap_exclude_post_ids** and **sgg_sitemap_exclude_term_ids** filters added for customizing Exclude Post and Term IDs
+* **sgg_sitemap_include_only_term_ids** filter added for customizing Include only Term IDs
 
 = 2.1.10 - 2025-06-17 =
 * Media Sitemap: BeeTheme compatibility added, as it uses post_meta for storing content

@@ -162,12 +162,8 @@ function sgg_be_theme_compatibility( $content, $post ) {
 
 		if ( ! empty( $mfn_items ) ) {
 			if ( ! is_array( $mfn_items ) ) {
-				$mfn_items = maybe_unserialize(
-					call_user_func( 'base64_decode', $mfn_items )
-				);
+				$mfn_items = call_user_func( 'base64_decode', $mfn_items );
 			}
-
-			$mfn_items = maybe_serialize( $mfn_items );
 
 			if ( ! empty( $mfn_items ) ) {
 				$content = $mfn_items;
@@ -204,6 +200,11 @@ add_action( 'wp', 'sgg_serve_indexnow_api_key' );
  * Clear Media Sitemap cache when a post status is changed.
  */
 function sgg_clear_media_sitemap_cache( $new_status, $old_status, $post ) {
+	$settings = get_option( \GRIM_SG\Vendor\Controller::$slug );
+	if ( is_object( $settings ) && ! empty( $settings->disable_media_sitemap_cache ) ) {
+		return;
+	}
+
 	if ( ( 'publish' === $old_status && 'publish' !== $new_status )
 		|| ( 'publish' === $new_status && 'publish' !== $old_status ) ) {
 		\GRIM_SG\MediaSitemap::delete_all_cache();

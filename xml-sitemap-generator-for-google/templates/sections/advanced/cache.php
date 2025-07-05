@@ -123,5 +123,28 @@ $settings = $args['settings'] ?? new stdClass();
 			<?php sgg_show_pro_overlay(); ?>
 		</div>
 
+
+		<h3 class="hndle"><?php esc_html_e( 'Troubleshoot', 'xml-sitemap-generator-for-google' ); ?></h3>
+		<div class="pro-wrapper <?php echo esc_attr( sgg_pro_class() ); ?>">
+			<p>
+				<?php esc_html_e( 'If you are having issues with Image and Video Sitemaps, you can try to disable Media Sitemap Cache Collection.', 'xml-sitemap-generator-for-google' ); ?>
+				<br>
+				<?php esc_html_e( 'Note: This will affect the performance of Media Sitemap Generation.', 'xml-sitemap-generator-for-google' ); ?>
+			</p>
+
+			<p>
+				<?php
+				Dashboard::render(
+					'fields/checkbox.php',
+					array(
+						'name'  => 'disable_media_sitemap_cache',
+						'value' => $settings->disable_media_sitemap_cache ?? false,
+						'label' => esc_html__( 'Disable Media Sitemap Cache Collection', 'xml-sitemap-generator-for-google' ),
+					)
+				);
+				?>
+			</p>
+		</div>
+
 	</div>
 </div>

@@ -96,7 +96,9 @@ class Dashboard extends Controller {
 		}
 
 		// Clear Media Sitemap Cache on every save
-		MediaSitemap::delete_all_cache();
+		if ( empty( $_POST['disable_media_sitemap_cache'] ) ) {
+			MediaSitemap::delete_all_cache();
+		}
 
 		// Clear Sitemaps Cache
 		if ( ! empty( $_POST['clear_cache'] ) ) {
@@ -168,6 +170,11 @@ class Dashboard extends Controller {
 			}
 		}
 
+		// Change Cron Job if Runtime is changed
+		if ( ! isset( $_POST['enable_cronjob'] ) || ! $_POST['enable_cronjob'] || ( ! empty( $_POST['cronjob_runtime'] ) && $saved_settings->cronjob_runtime !== $_POST['cronjob_runtime'] ) ) {
+			wp_clear_scheduled_hook( 'xml_sitemap_cronjob' );
+		}
+
 		$settings->enable_sitemap      = sanitize_text_field( $_POST['enable_sitemap'] ?? 0 );
 		$settings->sitemap_url         = sanitize_text_field( $_POST['sitemap_url'] ?? $settings->sitemap_url );
 		$settings->links_per_page      = sanitize_text_field( $_POST['links_per_page'] ?? $settings->links_per_page );
@@ -203,14 +210,17 @@ class Dashboard extends Controller {
 		$settings->include_featured_images = sanitize_text_field( $_POST['include_featured_images'] ?? 0 );
 		$settings->include_woo_gallery     = sanitize_text_field( $_POST['include_woo_gallery'] ?? 0 );
 
-		$settings->enable_cache             = sanitize_text_field( $_POST['enable_cache'] ?? 0 );
-		$settings->cache_timeout            = sanitize_text_field( $_POST['cache_timeout'] ?? $settings->cache_timeout );
-		$settings->cache_timeout_period     = sanitize_text_field( $_POST['cache_timeout_period'] ?? $settings->cache_timeout_period );
-		$settings->clear_cache_on_save_post = sanitize_text_field( $_POST['clear_cache_on_save_post'] ?? 0 );
-		$settings->enable_video_api_cache   = sanitize_text_field( $_POST['enable_video_api_cache'] ?? 0 );
-		$settings->minimize_sitemap         = sanitize_text_field( $_POST['minimize_sitemap'] ?? 0 );
-		$settings->colors                   = apply_filters( 'sanitize_post_array', $_POST['colors'] ?? $settings->colors );
-		$settings->hide_branding            = sanitize_text_field( $_POST['hide_branding'] ?? 0 );
+		$settings->enable_cache                = sanitize_text_field( $_POST['enable_cache'] ?? 0 );
+		$settings->cache_timeout               = sanitize_text_field( $_POST['cache_timeout'] ?? $settings->cache_timeout );
+		$settings->cache_timeout_period        = sanitize_text_field( $_POST['cache_timeout_period'] ?? $settings->cache_timeout_period );
+		$settings->clear_cache_on_save_post    = sanitize_text_field( $_POST['clear_cache_on_save_post'] ?? 0 );
+		$settings->enable_video_api_cache      = sanitize_text_field( $_POST['enable_video_api_cache'] ?? 0 );
+		$settings->disable_media_sitemap_cache = sanitize_text_field( $_POST['disable_media_sitemap_cache'] ?? 0 );
+		$settings->minimize_sitemap            = sanitize_text_field( $_POST['minimize_sitemap'] ?? 0 );
+		$settings->colors                      = apply_filters( 'sanitize_post_array', $_POST['colors'] ?? $settings->colors );
+		$settings->hide_branding               = sanitize_text_field( $_POST['hide_branding'] ?? 0 );
+		$settings->enable_cronjob              = sanitize_text_field( $_POST['enable_cronjob'] ?? 0 );
+		$settings->cronjob_runtime             = sanitize_text_field( $_POST['cronjob_runtime'] ?? $settings->cronjob_runtime );
 
 		$settings->home          = $settings->get_row_value( 'home' );
 		$settings->page          = $settings->get_row_value( 'page' );

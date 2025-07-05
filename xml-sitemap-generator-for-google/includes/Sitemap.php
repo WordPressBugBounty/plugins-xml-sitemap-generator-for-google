@@ -243,9 +243,9 @@ class Sitemap extends Controller {
 		global $wpdb;
 
 		$front_page_id    = get_option( 'page_on_front' );
-		$exclude_post_ids = apply_filters( 'sgg_sitemap_exclude_ids', array(), $this->settings->exclude_posts ?? '' );
-		$exclude_term_ids = apply_filters( 'sgg_sitemap_exclude_ids', array(), $this->settings->exclude_terms ?? '' );
-		$include_term_ids = apply_filters( 'sgg_sitemap_exclude_ids', array(), $this->settings->include_only_terms ?? '' );
+		$exclude_post_ids = apply_filters( 'sgg_sitemap_exclude_post_ids', apply_filters( 'sgg_sitemap_exclude_ids', array(), $this->settings->exclude_posts ?? '' ) );
+		$exclude_term_ids = apply_filters( 'sgg_sitemap_exclude_term_ids', apply_filters( 'sgg_sitemap_exclude_ids', array(), $this->settings->exclude_terms ?? '' ) );
+		$include_term_ids = apply_filters( 'sgg_sitemap_include_only_term_ids', apply_filters( 'sgg_sitemap_exclude_ids', array(), $this->settings->include_only_terms ?? '' ) );
 		$per_page         = intval( $this->settings->links_per_page ?? 1000 );
 
 		if ( ! empty( $front_page_id ) ) {
@@ -701,7 +701,9 @@ class Sitemap extends Controller {
 					continue;
 				}
 
-				$polylang_term_ids[] = absint( $lang_model->get_tax_prop( $tax_language, 'term_taxonomy_id' ) );
+				if ( $lang_model ) {
+					$polylang_term_ids[] = absint( $lang_model->get_tax_prop( $tax_language, 'term_taxonomy_id' ) );
+				}
 			}
 
 			if ( ! empty( $polylang_term_ids ) ) {

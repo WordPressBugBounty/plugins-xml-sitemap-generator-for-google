@@ -63,14 +63,17 @@ class Settings extends Controller {
 	public $include_woo_gallery     = false;
 
 	// Cache Settings
-	public $enable_cache             = false;
-	public $cache_timeout            = 24;
-	public $cache_timeout_period     = 3600;
-	public $clear_cache_on_save_post = false;
-	public $enable_video_api_cache   = true;
+	public $enable_cache                = false;
+	public $cache_timeout               = 24;
+	public $cache_timeout_period        = 3600;
+	public $clear_cache_on_save_post    = false;
+	public $enable_video_api_cache      = true;
+	public $disable_media_sitemap_cache = false;
 
 	public $minimize_sitemap = false;
 	public $hide_branding    = true;
+	public $enable_cronjob   = false;
+	public $cronjob_runtime  = 'daily';
 	public $colors           = array(
 		'header_background_color'  => '#82a745',
 		'header_text_color'        => '#ffffff',

@@ -107,6 +107,12 @@ settings_errors( Dashboard::$slug );
 								<!-- Styles -->
 								<?php Dashboard::render( 'sections/advanced/styles.php', $args ); ?>
 
+								<!-- Cron Job -->
+								<?php Dashboard::render( 'sections/advanced/cronjob.php', $args ); ?>
+
+								<!-- WP CLI -->
+								<?php Dashboard::render( 'sections/advanced/wp-cli.php', $args ); ?>
+
 								<!-- Import & Export -->
 								<?php Dashboard::render( 'sections/advanced/import-export.php', $args ); ?>
 							</div>

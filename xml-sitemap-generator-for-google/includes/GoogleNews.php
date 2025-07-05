@@ -38,9 +38,9 @@ class GoogleNews extends Sitemap {
 
 		$front_page_id    = get_option( 'page_on_front' );
 		$post_types       = array( 'page', 'post' );
-		$exclude_post_ids = apply_filters( 'sgg_sitemap_exclude_ids', array(), $this->settings->google_news_exclude ?? '' );
-		$exclude_term_ids = apply_filters( 'sgg_sitemap_exclude_ids', array(), $this->settings->google_news_exclude_terms ?? '' );
-		$include_term_ids = apply_filters( 'sgg_sitemap_exclude_ids', array(), $this->settings->google_news_include_only_terms ?? '' );
+		$exclude_post_ids = apply_filters( 'sgg_sitemap_exclude_post_ids', apply_filters( 'sgg_sitemap_exclude_ids', array(), $this->settings->google_news_exclude ?? '' ) );
+		$exclude_term_ids = apply_filters( 'sgg_sitemap_exclude_term_ids', apply_filters( 'sgg_sitemap_exclude_ids', array(), $this->settings->google_news_exclude_terms ?? '' ) );
+		$include_term_ids = apply_filters( 'sgg_sitemap_include_only_term_ids', apply_filters( 'sgg_sitemap_exclude_ids', array(), $this->settings->google_news_include_only_terms ?? '' ) );
 
 		if ( ! empty( $front_page_id ) ) {
 			$exclude_post_ids[] = $front_page_id;
