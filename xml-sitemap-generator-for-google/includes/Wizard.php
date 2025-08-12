@@ -87,7 +87,7 @@ class Wizard extends Dashboard {
 
 		wp_send_json(
 			array(
-				'success' => true,
+				'success'  => true,
 				'redirect' => admin_url( 'admin.php?page=' . self::$slug ),
 			)
 		);

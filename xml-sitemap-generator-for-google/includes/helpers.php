@@ -1,5 +1,8 @@
 <?php
 
+use GRIM_SG\ImageSitemap;
+use GRIM_SG\VideoSitemap;
+
 function sgg_pro_enabled() {
 	return defined( 'SGG_PRO_VERSION' );
 }
@@ -51,7 +54,7 @@ function sgg_is_sitemap_index( $template, $settings = null ) {
 	}
 
 	// Detect Media Sitemap Structure
-	if ( in_array( $template, array( 'image-sitemap', 'video-sitemap' ), true ) && ! empty( $settings->sitemap_view ) ) {
+	if ( in_array( $template, array( ImageSitemap::$template, VideoSitemap::$template ), true ) && ! empty( $settings->sitemap_view ) ) {
 		$sitemap_structure = get_option( "sgg_{$template}_structure" );
 
 		return 'multiple' === $sitemap_structure;
