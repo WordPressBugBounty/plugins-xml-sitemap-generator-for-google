@@ -143,3 +143,18 @@ function sgg_maybe_remove_inner_suffix( $template ) {
 
 	return $template;
 }
+
+function sgg_pro_features_page_tab( $tabs ) {
+	if ( ! sgg_pro_enabled() ) {
+		$tabs['xml_sitemap_generator_for_google_pro'] = sprintf(
+			'<a href="%s" target="_blank" class="sgg-plugin-pro-feature">%s</a>',
+			esc_url( 'https://wpgrim.com/google-xml-sitemaps-generator-pro/?utm_source=sgg-plugin&utm_medium=plugins&utm_campaign=xml_sitemap' ),
+			esc_html__( 'XML Sitemaps Generator Pro Features', 'xml-sitemap-generator-for-google' )
+		);
+		wp_enqueue_style( 'sgg-styles', GRIM_SG_URL . 'assets/css/styles.min.css', array(), GRIM_SG_VERSION );
+	}
+
+	return $tabs;
+}
+
+add_filter( 'install_plugins_tabs', 'sgg_pro_features_page_tab' );
