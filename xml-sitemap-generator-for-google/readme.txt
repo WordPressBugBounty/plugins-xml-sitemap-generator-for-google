@@ -1,15 +1,15 @@
 === Dynamic XML Sitemaps Generator for Google ===
 Contributors: wpgrim
 Donate link: https://wpgrim.com/google-xml-sitemaps-generator-pro/?utm_source=wordpressorg&utm_medium=donate&utm_campaign=xml_sitemap
-Tags: sitemap, xml sitemap, google news, image sitemap, video sitemap, google sitemaps, xml, google, seo, sitemaps, site map, robots, google, sitemap generator, dynamic sitemap, generator, google webmaster tools, add pages to sitemap, add posts to sitemap
+Tags: sitemap, xml sitemap, google news, image sitemap, video sitemap, google sitemaps, xml, google, seo, sitemaps, site map, robots, google, sitemap generator, dynamic sitemap, generator, google webmaster tools, add pages to sitemap, add posts to sitemap, wordpress sitemap plugin, sitemap for search engines, indexing sitemap, custom sitemap, multilingual sitemap, news sitemap, seo friendly sitemap, woocommerce sitemap, image sitemap generator
 Requires at least: 5.0
 Requires PHP: 5.6
 Tested up to: 6.8.2
-Stable tag: 2.1.15
+Stable tag: 2.1.16
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Greatly improves your site's SEO 🚀 with special XML Sitemaps, HTML Sitemap, Image Sitemap, Video Sitemap and Google News.
+Boost SEO 🚀 with powerful XML, HTML, Image, Video & Google News sitemaps for better search engine indexing.
 
 == Description ==
 
@@ -19,12 +19,15 @@ Google XML Sitemaps Generator is a WordPress Sitemap plugin that improves your w
 
 This plugin generates detailed **XML Sitemaps** that include your website's Pages, Posts, Custom Posts, and Taxonomies, enhancing your website's Search Engine Optimization (SEO) score. Plugin offers following Sitemaps:
 
-* **General Sitemap** - single XML Sitemap with all links
-* **Sitemap Index** - multiple Sitemaps in a single Sitemap Index
-* **Google News Sitemap**
-* **Image Sitemap**
-* **Video Sitemap**
-* **Multilingual Sitemap** - WPML, Polylang, TranslatePress compatible
+* **General Sitemap** – single XML Sitemap with all important links
+* **Google News Sitemap** – optimized for fast news indexing and higher visibility
+* **Sitemap Index** – organize multiple sitemaps in one index for better structure
+* **Image Sitemap** – improve indexing of images, galleries, and media content
+* **Video Sitemap** – help Google discover and rank your video content faster
+* **Multilingual Sitemap** – fully compatible with WPML, Polylang, and TranslatePress
+* **WooCommerce Support** – includes products, categories, and tags in sitemaps
+* **Customizable Control** – exclude specific posts, pages, or taxonomies; add custom URLs; set priority and frequency rules
+* **SEO-Friendly & Performance Optimized** – built-in caching system, robots.txt integration, WP-CLI commands, and seamless compatibility with popular SEO plugins (Yoast, Rank Math, The SEO Framework)
 
 ⭐ [Documentation](https://wpgrim.com/docs/google-xml-sitemaps-generator/general/settings/?utm_source=wordpressorg&utm_medium=documentation&utm_campaign=xml_sitemap)
 
@@ -124,7 +127,7 @@ Here is a short list of Google XML Sitemap plugin features.
 * Last Cached Time of Sitemaps
 * Import & Export Settings
 
-## Upgrade to Pro Version
+## 🌟 Upgrade to Pro Version
 
 Upgrade to the [Google XML Sitemaps Generator Pro](https://wpgrim.com/google-xml-sitemaps-generator-pro/?utm_source=wordpressorg&utm_medium=content&utm_campaign=xml_sitemap) to get access to even more features, like an HTML Sitemap, Exclusion of specific Pages and Custom Posts from your Sitemap, Google News Premium Features, and more.
 
@@ -291,6 +294,9 @@ This section describes how to install the plugin and get it working.
 4. Set Up Page in **Settings -> XML Sitemaps**.
 
 == Changelog ==
+
+= 2.1.16 - 2025-09-28 =
+* UI/UX improvements
 
 = 2.1.15 - 2025-09-10 =
 * Spanish, French, Portuguese, Polish translations added
