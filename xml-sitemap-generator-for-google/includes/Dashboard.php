@@ -66,6 +66,7 @@ class Dashboard extends Controller {
 					array(
 						'settingsArray'   => $settings_array,
 						'noSettingsFound' => esc_html__( 'Settings not found', 'xml-sitemap-generator-for-google' ),
+						'NoUrls'          => esc_html__( 'No URLs added yet!', 'xml-sitemap-generator-for-google' ),
 					)
 				);
 			}

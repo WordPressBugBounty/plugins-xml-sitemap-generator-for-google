@@ -695,8 +695,8 @@ class Sitemap extends Controller {
 				if ( $attachment_link ) {
 					$this->add_url(
 						$attachment_link,
-						apply_filters( 'sitemap_media_priority', $this->settings->media->priority, $attachment->ID ),
-						apply_filters( 'sitemap_media_frequency', $this->settings->media->frequency, $attachment->ID ),
+						apply_filters( 'sitemap_media_priority', apply_filters( 'sitemap_post_priority', $this->settings->media->priority, $attachment->ID ), $attachment->ID ),
+						apply_filters( 'sitemap_media_frequency', apply_filters( 'sitemap_post_frequency', $this->settings->media->frequency, $attachment->ID ), $attachment->ID ),
 						gmdate( DATE_W3C, strtotime( $attachment->post_modified ) ),
 						'media'
 					);
