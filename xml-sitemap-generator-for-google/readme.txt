@@ -4,8 +4,8 @@ Donate link: https://wpgrim.com/google-xml-sitemaps-generator-pro/?utm_source=wo
 Tags: sitemap, xml sitemap, google news, image sitemap, video sitemap, google sitemaps, xml, google, seo, sitemaps, site map, robots, google, sitemap generator, dynamic sitemap, generator, google webmaster tools, add pages to sitemap, add posts to sitemap, wordpress sitemap plugin, sitemap for search engines, indexing sitemap, custom sitemap, multilingual sitemap, news sitemap, seo friendly sitemap, woocommerce sitemap, image sitemap generator
 Requires at least: 5.0
 Requires PHP: 5.6
-Tested up to: 6.8.2
-Stable tag: 2.1.16
+Tested up to: 6.9
+Stable tag: 2.2.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,6 +29,7 @@ This plugin generates detailed **XML Sitemaps** that include your website's Page
 * **Customizable Control** – exclude specific posts, pages, or taxonomies; add custom URLs; set priority and frequency rules
 * **SEO-Friendly & Performance Optimized** – built-in caching system, robots.txt integration, WP-CLI commands, and seamless compatibility with popular SEO plugins (Yoast, Rank Math, The SEO Framework)
 
+⭐ [Dynamic XML Sitemaps Generator for Google PRO](https://wpgrim.com/google-xml-sitemaps-generator-pro/?utm_source=wordpressorg&utm_medium=documentation&utm_campaign=xml_sitemap)
 ⭐ [Documentation](https://wpgrim.com/docs/google-xml-sitemaps-generator/general/settings/?utm_source=wordpressorg&utm_medium=documentation&utm_campaign=xml_sitemap)
 
 ## Sitemap Structure
@@ -207,17 +208,20 @@ Developed with ❤️ by [WP Grim](https://wpgrim.com/?utm_source=wordpressorg&u
 == Screenshots ==
 
 1. General Settings
-2. Sitemap Options
-3. Google News Settings
-4. Media Sitemaps Settings
-5. Advanced Settings
-6. XML Sitemap
-7. Sitemap Index
-8. Video Sitemap
-9. Image Sitemap
-10. Google News
-11. Multilingual Sitemap
-12. Setup Wizard
+2. Sitemap Structure
+3. Sitemap Options
+4. Google News Settings
+5. Image Sitemap Settings
+6. Video Sitemap Settings
+7. Advanced Settings
+8. WP CLI & Import/Export Tools
+9. XML Sitemap
+10. Sitemap Index
+11. Video Sitemap
+12. Image Sitemap
+13. Google News
+14. Multilingual Sitemap
+15. Setup Wizard
 
 == Frequently Asked Questions ==
 
@@ -294,6 +298,37 @@ This section describes how to install the plugin and get it working.
 4. Set Up Page in **Settings -> XML Sitemaps**.
 
 == Changelog ==
+
+= 2.2.6 - 2026-01-25 =
+* Media Pages added to main XML Sitemap
+
+= 2.2.5 - 2026-01-08 =
+* Image Sitemap: Disable XSL Stylesheet option added
+* Video Sitemap: Disable XSL Stylesheet option added
+* Admin notices are hidden on Settings pages
+
+= 2.2.4 - 2025-12-25 =
+* Dashboard UI/UX improved
+
+= 2.2.3 - 2025-12-03 =
+* WordPress 6.9 compatible
+* Wizard design updated
+
+= 2.2.2 - 2025-11-22 =
+* Multilingual Sitemap: Sitemap URLs trailing slash issue fixed. Thanks to @sunlight1976
+
+= 2.2.1 - 2025-11-07 =
+* Top Navigation UI/UX improved
+* Admin Settings page UI/UX improved
+* WordPress 6.8.3 compatible
+* Minor bug fixes
+
+= 2.2.0 - 2025-10-20 =
+* New Admin Panel Design
+* Multilingual Sitemap: Home page URL trailing slash issue fixed
+
+= 2.1.17 - 2025-10-08 =
+* Multilingual Sitemap: Default language issue fixed
 
 = 2.1.16 - 2025-09-28 =
 * UI/UX improvements

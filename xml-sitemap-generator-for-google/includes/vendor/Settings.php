@@ -22,6 +22,7 @@ class Settings extends Controller {
 	public $archive;
 	public $archive_older;
 	public $authors;
+	public $media;
 	public $exclude_posts;
 	public $exclude_terms;
 	public $include_only_terms;
@@ -48,6 +49,8 @@ class Settings extends Controller {
 	public $image_sitemap_url       = 'image-sitemap.xml';
 	public $video_sitemap_url       = 'video-sitemap.xml';
 	public $hide_image_previews     = false;
+	public $hide_image_sitemap_xsl  = false;
+	public $hide_video_sitemap_xsl  = false;
 	public $image_mime_types        = array(
 		'image/jpeg' => true,
 		'image/png'  => true,
@@ -93,6 +96,10 @@ class Settings extends Controller {
 		$this->archive       = new PTSettings( 6, PTSettings::$DAILY );
 		$this->archive_older = new PTSettings( 3, PTSettings::$YEARLY );
 		$this->authors       = new PTSettings( 3, PTSettings::$WEEKLY );
+		$this->media         = new PTSettings( 3, PTSettings::$WEEKLY );
+
+		// Media Pages are disabled by default
+		$this->media->include = false;
 
 		foreach ( $this->get_cpt() as $cpt ) {
 			$this->cpt[ $cpt ] = new PTSettings( 6, PTSettings::$MONTHLY );

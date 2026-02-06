@@ -88,6 +88,10 @@ function sgg_get_home_url( $path = '' ) {
 	return ! empty( $path ) ? "{$home_url}/{$path}" : $home_url;
 }
 
+function sgg_get_home_url_with_trailing_slash() {
+	return trailingslashit( untrailingslashit( sgg_get_home_url() ) );
+}
+
 function sgg_is_nginx() {
 	return isset( $_SERVER['SERVER_SOFTWARE'] ) && stristr( sanitize_text_field( wp_unslash( $_SERVER['SERVER_SOFTWARE'] ) ), 'nginx' ) !== false;
 }
@@ -106,14 +110,14 @@ function sgg_get_sitemap_url( $sitemap_url, $sitemap_type, $suffix = true ) {
 	}
 }
 
-function sgg_get_languages() {
+function sgg_get_languages( $with_default = false ) {
 	$languages = array();
 
 	if ( function_exists( 'pll_languages_list' ) ) {
 		$languages    = pll_languages_list( array( 'fields' => 'slug' ) );
 		$default_lang = array_search( pll_default_language(), $languages, true );
 
-		if ( false !== $default_lang ) {
+		if ( false !== $default_lang && ! $with_default ) {
 			unset( $languages[ $default_lang ] );
 		}
 	}
@@ -122,12 +126,22 @@ function sgg_get_languages() {
 		$trp_settings = get_option( 'trp_settings' );
 		$trp_slugs    = $trp_settings['url-slugs'] ?? array();
 
-		unset( $trp_slugs[ $trp_settings['default-language'] ?? '' ] );
+		if ( ! $with_default ) {
+			unset( $trp_slugs[ $trp_settings['default-language'] ?? '' ] );
+		}
 
 		$languages = array_values( $trp_slugs );
 	}
 
 	return $languages;
+}
+
+function sgg_get_default_language_code() {
+	if ( function_exists( 'pll_default_language' ) ) {
+		return pll_default_language();
+	}
+
+	return apply_filters( 'wpml_default_language', null );
 }
 
 function sgg_is_multilingual() {

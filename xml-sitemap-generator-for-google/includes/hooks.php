@@ -166,7 +166,7 @@ function sgg_be_theme_compatibility( $content, $post ) {
 			}
 
 			if ( ! empty( $mfn_items ) ) {
-				$content = $mfn_items;
+				$content = is_array( $mfn_items ) ? implode( '', $mfn_items ) : $mfn_items;
 			}
 		}
 	}

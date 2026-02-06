@@ -47,6 +47,7 @@ class SitemapCLI {
 		}
 
 		// Initialize the Sitemap class
+		$sitemap = null;
 		if ( 'sitemap' === $template ) {
 			$sitemap = new Sitemap();
 		} elseif ( 'image-sitemap' === $template ) {

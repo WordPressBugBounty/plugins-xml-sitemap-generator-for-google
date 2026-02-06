@@ -124,7 +124,7 @@ class VideoSitemap extends MediaSitemap {
 	}
 
 	/**
-	 * Detect a TikTok video URL (full or “vm.” shortlink)
+	 * Detect a TikTok video URL (full or "vm." shortlink)
 	 */
 	public function is_tiktok_url( $url ): bool {
 		return (bool) preg_match( '~^https?://(?:www\.|m\.)?tiktok\.com/@[A-Za-z0-9._-]+/video/\d+(?:[/?].*)?$~i', $url )

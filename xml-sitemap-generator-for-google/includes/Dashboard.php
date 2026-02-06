@@ -15,6 +15,8 @@ class Dashboard extends Controller {
 		add_action( 'admin_menu', array( $this, 'admin_menu_pages' ) );
 		add_filter( 'plugin_action_links_' . GRIM_SG_BASENAME, array( $this, 'plugin_action_links' ) );
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_meta_links' ), 10, 2 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+		add_action( 'admin_print_footer_scripts', array( $this, 'add_plugin_logo_script' ) );
 	}
 
 	/**
@@ -31,24 +33,60 @@ class Dashboard extends Controller {
 	}
 
 	/**
+	 * Enqueue admin styles and scripts for plugin
+	 */
+	public function admin_enqueue_scripts( $hook ) {
+		wp_register_style(
+			'sgg-rate-banner',
+			GRIM_SG_URL . 'assets/css/rate-banner.min.css',
+			array(),
+			GRIM_SG_VERSION
+		);
+
+		wp_register_style(
+			'sgg-icons',
+			GRIM_SG_URL . 'assets/fonts/icons/style.css',
+			array(),
+			GRIM_SG_VERSION
+		);
+
+		if ( 'settings_page_xml-sitemap-generator-for-google' === $hook ) {
+			wp_enqueue_style( 'sgg-fonts', GRIM_SG_URL . 'assets/fonts/albert_sans/fonts.css', array(), GRIM_SG_VERSION );
+			wp_enqueue_style( 'sgg-icons', GRIM_SG_URL . 'assets/fonts/icons/style.css', array(), GRIM_SG_VERSION );
+			wp_enqueue_style( 'sgg-styles', GRIM_SG_URL . 'assets/css/styles.min.css', array( 'sgg-fonts' ), GRIM_SG_VERSION );
+			wp_enqueue_script( 'jquery-ui', GRIM_SG_URL . 'assets/js/jquery-ui.min.js', array( 'jquery' ), GRIM_SG_VERSION, true );
+			wp_enqueue_script( 'sgg-scripts', GRIM_SG_URL . 'assets/js/scripts.js', array( 'jquery' ), GRIM_SG_VERSION, true );
+
+			if ( function_exists( 'xml_sitemap_generate_settings' ) ) {
+				$settings_array = xml_sitemap_generate_settings() ?? array();
+
+				wp_localize_script(
+					'sgg-scripts',
+					'grimData',
+					array(
+						'settingsArray'   => $settings_array,
+						'noSettingsFound' => esc_html__( 'Settings not found', 'xml-sitemap-generator-for-google' ),
+					)
+				);
+			}
+
+			wp_localize_script(
+				'sgg-scripts',
+				'sgg',
+				array(
+					'ajax_url' => admin_url( 'admin-ajax.php' ),
+				)
+			);
+		}
+	}
+
+	/**
 	 * Settings page
 	 */
 	public function render_settings_page() {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
-
-		wp_enqueue_style( 'sgg-styles', GRIM_SG_URL . 'assets/css/styles.min.css', array(), GRIM_SG_VERSION );
-		wp_enqueue_script( 'jquery-ui', GRIM_SG_URL . 'assets/js/jquery-ui.min.js', array( 'jquery' ), GRIM_SG_VERSION, true );
-		wp_enqueue_script( 'sgg-scripts', GRIM_SG_URL . 'assets/js/scripts.js', array( 'jquery' ), GRIM_SG_VERSION, true );
-
-		wp_localize_script(
-			'sgg-scripts',
-			'sgg',
-			array(
-				'ajax_url' => admin_url( 'admin-ajax.php' ),
-			)
-		);
 
 		$this->save_settings();
 
@@ -78,6 +116,11 @@ class Dashboard extends Controller {
 		}
 
 		if ( ! isset( $_POST['sgg_settings_nonce'] ) || ! wp_verify_nonce( $_POST['sgg_settings_nonce'], GRIM_SG_BASENAME . '-settings' ) ) {
+			return;
+		}
+
+		// Run Tools Actions
+		if ( Tools::run_tools_actions( $_POST ) ) {
 			return;
 		}
 
@@ -139,8 +182,8 @@ class Dashboard extends Controller {
 		$saved_settings = $this->get_settings();
 
 		// Check YouTube API Key
-		if ( ! empty( $_POST['youtube_api_key'] ) && is_callable( 'SGG_PRO\Classes\Video_Sitemap::request_youtube_data' )
-			&& ( ! empty( $_POST['youtube_check_api_key'] ) || $saved_settings->youtube_api_key !== $_POST['youtube_api_key'] ) ) {
+		if ( ! empty( $_POST['youtube_check_api_key'] ) && $saved_settings->youtube_api_key !== $_POST['youtube_api_key']
+			&& ! empty( $_POST['youtube_api_key'] ) && is_callable( 'SGG_PRO\Classes\Video_Sitemap::request_youtube_data' ) ) {
 			$youtube_data = Video_Sitemap::request_youtube_data( 'dQw4w9WgXcQ', sanitize_text_field( $_POST['youtube_api_key'] ) );
 
 			if ( ! empty( $youtube_data ) && is_array( $youtube_data ) ) {
@@ -155,8 +198,8 @@ class Dashboard extends Controller {
 		}
 
 		// Check Vimeo API Key
-		if ( ! empty( $_POST['vimeo_api_key'] ) && is_callable( 'SGG_PRO\Classes\Video_Sitemap::request_vimeo_data' )
-			&& ( ! empty( $_POST['vimeo_check_api_key'] ) || $saved_settings->vimeo_api_key !== $_POST['vimeo_api_key'] ) ) {
+		if ( ! empty( $_POST['vimeo_check_api_key'] ) && $saved_settings->vimeo_api_key !== $_POST['vimeo_api_key']
+			&& ! empty( $_POST['vimeo_api_key'] ) && is_callable( 'SGG_PRO\Classes\Video_Sitemap::request_vimeo_data' ) ) {
 			$vimeo_data = Video_Sitemap::request_vimeo_data( '22439234', sanitize_text_field( $_POST['vimeo_api_key'] ) );
 
 			if ( ! empty( $vimeo_data ) && is_array( $vimeo_data ) ) {
@@ -203,6 +246,8 @@ class Dashboard extends Controller {
 		$settings->image_sitemap_url       = sanitize_text_field( $_POST['image_sitemap_url'] ?? $settings->image_sitemap_url );
 		$settings->video_sitemap_url       = sanitize_text_field( $_POST['video_sitemap_url'] ?? $settings->video_sitemap_url );
 		$settings->hide_image_previews     = sanitize_text_field( $_POST['hide_image_previews'] ?? 0 );
+		$settings->hide_image_sitemap_xsl  = sanitize_text_field( $_POST['hide_image_sitemap_xsl'] ?? 0 );
+		$settings->hide_video_sitemap_xsl  = sanitize_text_field( $_POST['hide_video_sitemap_xsl'] ?? 0 );
 		$settings->image_mime_types        = apply_filters( 'sanitize_post_array', $_POST['image_mime_types'] ?? $settings->image_mime_types );
 		$settings->youtube_api_key         = sanitize_text_field( $_POST['youtube_api_key'] ?? $settings->youtube_api_key );
 		$settings->vimeo_api_key           = sanitize_text_field( $_POST['vimeo_api_key'] ?? $settings->vimeo_api_key );
@@ -228,6 +273,7 @@ class Dashboard extends Controller {
 		$settings->archive       = $settings->get_row_value( 'archive' );
 		$settings->archive_older = $settings->get_row_value( 'archive_older' );
 		$settings->authors       = $settings->get_row_value( 'authors' );
+		$settings->media         = $settings->get_row_value( 'media' );
 
 		foreach ( $this->get_cpt() as $cpt ) {
 			$settings->cpt[ $cpt ] = $settings->get_row_value( $cpt );
@@ -380,16 +426,22 @@ class Dashboard extends Controller {
 			esc_html__( 'Settings', 'xml-sitemap-generator-for-google' )
 		);
 
-		array_unshift( $links, $settings_link );
+		$docs_link = sprintf(
+			'<a href="%1$s" target="_blank" rel="noopener noreferrer">%2$s</a>',
+			esc_url( 'https://wpgrim.com/docs/google-xml-sitemaps-generator/general/xml-sitemap/' ),
+			esc_html__( 'Docs', 'xml-sitemap-generator-for-google' )
+		);
 
 		if ( ! sgg_pro_enabled() ) {
 			$pro_link = sprintf(
-				'<a href="%1$s" style="font-weight: 600; color: #00b000;" target="_blank">%2$s</a>',
+				'<a href="%1$s" style="font-weight: 600; color: #ff7113;" target="_blank">%2$s</a>',
 				sgg_get_pro_url( 'plugin-action-link' ),
 				esc_html__( 'Get Pro Version', 'xml-sitemap-generator-for-google' )
 			);
 
-			$links[] = $pro_link;
+			$links = array_merge( array( $pro_link, $settings_link, $docs_link ), $links );
+		} else {
+			$links = array_merge( array( $settings_link, $docs_link ), $links );
 		}
 
 		return $links;
@@ -408,5 +460,43 @@ class Dashboard extends Controller {
 		}
 
 		return $links;
+	}
+
+	/**
+	 * Add plugin logo script to plugins page
+	 */
+	public function add_plugin_logo_script() {
+		global $pagenow;
+
+		// Only add script on plugins page
+		if ( 'plugins.php' !== $pagenow ) {
+			return;
+		}
+		?>
+		<script type="text/javascript">
+		document.addEventListener('DOMContentLoaded', function() {
+			// Find the plugin row for XML Sitemap Generator
+			const pluginRow = document.querySelector('tr[data-slug="xml-sitemap-generator-for-google"]');
+
+			if (pluginRow) {
+				const pluginTitle = pluginRow.querySelector('.plugin-title strong');
+
+				if (pluginTitle) {
+					// Create logo element
+					const logo = document.createElement('img');
+					logo.src = '<?php echo esc_url( GRIM_SG_URL . 'assets/images/sgg-logo.svg' ); ?>';
+					logo.alt = 'XML Sitemap Generator Logo';
+					logo.style.width = '20px';
+					logo.style.height = '20px';
+					logo.style.paddingRight = '10px';
+					logo.style.verticalAlign = 'middle';
+
+					// Insert logo before the plugin title
+					pluginTitle.insertBefore(logo, pluginTitle.firstChild);
+				}
+			}
+		});
+		</script>
+		<?php
 	}
 }
