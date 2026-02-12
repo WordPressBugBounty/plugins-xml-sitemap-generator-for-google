@@ -183,7 +183,7 @@ class Dashboard extends Controller {
 		$saved_settings = $this->get_settings();
 
 		// Check YouTube API Key
-		if ( ! empty( $_POST['youtube_check_api_key'] ) && $saved_settings->youtube_api_key !== $_POST['youtube_api_key']
+		if ( ( ! empty( $_POST['youtube_check_api_key'] ) || $saved_settings->youtube_api_key !== $_POST['youtube_api_key'] )
 			&& ! empty( $_POST['youtube_api_key'] ) && is_callable( 'SGG_PRO\Classes\Video_Sitemap::request_youtube_data' ) ) {
 			$youtube_data = Video_Sitemap::request_youtube_data( 'dQw4w9WgXcQ', sanitize_text_field( $_POST['youtube_api_key'] ) );
 
@@ -199,7 +199,7 @@ class Dashboard extends Controller {
 		}
 
 		// Check Vimeo API Key
-		if ( ! empty( $_POST['vimeo_check_api_key'] ) && $saved_settings->vimeo_api_key !== $_POST['vimeo_api_key']
+		if ( ( ! empty( $_POST['vimeo_check_api_key'] ) || $saved_settings->vimeo_api_key !== $_POST['vimeo_api_key'] )
 			&& ! empty( $_POST['vimeo_api_key'] ) && is_callable( 'SGG_PRO\Classes\Video_Sitemap::request_vimeo_data' ) ) {
 			$vimeo_data = Video_Sitemap::request_vimeo_data( '22439234', sanitize_text_field( $_POST['vimeo_api_key'] ) );
 
