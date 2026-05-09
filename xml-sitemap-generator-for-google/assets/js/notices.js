@@ -20,6 +20,8 @@ jQuery(document).ready(function ($) {
             return;
         }
 
+        const permanent = parseInt($trigger.attr('data-permanent'), 10) === 1;
+
         $.ajax({
             url: sggNotice.ajax_url,
             method: 'post',
@@ -27,7 +29,8 @@ jQuery(document).ready(function ($) {
             data: {
                 action: 'sgg_disable_notice',
                 nonce: sggNotice.nonce,
-                notice: noticeId
+                notice: noticeId,
+                permanent: permanent ? 1 : 0
             }
         });
 

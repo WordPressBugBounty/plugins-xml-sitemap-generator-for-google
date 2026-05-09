@@ -27,7 +27,7 @@ wp_enqueue_style( 'sgg-icons' );
 					<span><?php esc_html_e( 'Dismiss', 'xml-sitemap-generator-for-google' ); ?></span>
 				</a>
 			<?php endif; ?>
-			<a href="<?php echo esc_url( $args['button_url'] ); ?>" target="_blank" rel="noopener noreferrer" class="grim-button secondary sgg-notice">
+			<a href="<?php echo esc_url( $args['button_url'] ); ?>" target="_blank" rel="noopener noreferrer" class="grim-button secondary sgg-notice"<?php echo ! empty( $args['primary_permanent'] ) ? ' data-permanent="1"' : ''; ?>>
 				<span><?php echo esc_html( $args['button_text'] ); ?><i class="grim-icon-arrow-right"></i></span>
 			</a>
 		</div>

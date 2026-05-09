@@ -9,8 +9,8 @@ class Notices extends Controller {
 	private const BUY_PRO              = 'sgg_buy_pro';
 	private const NOTICE_COOLDOWN_DAYS = 3;
 	private const NOTICE_DELAY_DAYS    = array(
-		self::RATE    => array( 3, 15 ),
-		self::BUY_PRO => array( 7, 30, 60 ),
+		self::RATE    => array( 14, 60 ),
+		self::BUY_PRO => array( 10, 40, 90 ),
 	);
 
 	public function __construct() {
@@ -26,12 +26,19 @@ class Notices extends Controller {
 		$notice = sanitize_text_field( $_POST['notice'] ?? '' );
 
 		if ( in_array( $notice, array( self::RATE, self::BUY_PRO ), true ) ) {
-			$current_dismiss_count = (int) get_option( "xml_sitemap_disable_notice_{$notice}", 0 );
-			$delays_count          = count( self::NOTICE_DELAY_DAYS[ $notice ] ?? array() );
-			$max_dismiss_count     = max( 0, $delays_count );
-			$next_dismiss_count    = min( $current_dismiss_count + 1, $max_dismiss_count );
+			$delays_count      = count( self::NOTICE_DELAY_DAYS[ $notice ] ?? array() );
+			$max_dismiss_count = max( 0, $delays_count );
+			$permanent         = ! empty( $_POST['permanent'] );
 
-			update_option( "xml_sitemap_disable_notice_{$notice}", $next_dismiss_count, false );
+			if ( self::RATE === $notice && $permanent && $max_dismiss_count > 0 ) {
+				update_option( "xml_sitemap_disable_notice_{$notice}", $max_dismiss_count, false );
+			} else {
+				$current_dismiss_count = (int) get_option( "xml_sitemap_disable_notice_{$notice}", 0 );
+				$next_dismiss_count    = min( $current_dismiss_count + 1, $max_dismiss_count );
+
+				update_option( "xml_sitemap_disable_notice_{$notice}", $next_dismiss_count, false );
+			}
+
 			set_transient( 'xml_sitemap_notice_cooldown', 1, self::NOTICE_COOLDOWN_DAYS * DAY_IN_SECONDS );
 		}
 
@@ -107,16 +114,17 @@ class Notices extends Controller {
 		Dashboard::render(
 			'partials/rate-banner.php',
 			array(
-				'label'        => esc_html__( 'Hi, Thank you for using Google XML Sitemaps Generator!', 'xml-sitemap-generator-for-google' ),
-				'description'  => sprintf(
+				'label'             => esc_html__( 'Hi, Thank you for using Google XML Sitemaps Generator!', 'xml-sitemap-generator-for-google' ),
+				'description'       => sprintf(
 					/* translators: %s: Rating */
 					esc_html__( 'Enjoying the plugin? Please leave us a %s rating. It helps us improve and support more users.', 'xml-sitemap-generator-for-google' ),
 					'<span><a href="' . esc_url( sgg_get_review_url() ) . '" target="_blank" rel="noopener noreferrer">★★★★★</a></span>'
 				),
-				'button_text'  => esc_html__( 'Leave a 5-star rating', 'xml-sitemap-generator-for-google' ),
-				'button_url'   => esc_url( sgg_get_review_url() ),
-				'data_notice'  => self::RATE,
-				'notice_class' => 'grim-dynamic-notice',
+				'button_text'       => esc_html__( 'Leave a 5-star rating', 'xml-sitemap-generator-for-google' ),
+				'button_url'        => esc_url( sgg_get_review_url() ),
+				'data_notice'       => self::RATE,
+				'notice_class'      => 'grim-dynamic-notice',
+				'primary_permanent' => true,
 			)
 		);
 	}
