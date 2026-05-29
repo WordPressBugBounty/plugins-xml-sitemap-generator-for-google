@@ -4,8 +4,8 @@ Donate link: https://wpgrim.com/google-xml-sitemaps-generator-pro/?utm_source=wo
 Tags: sitemap, xml sitemap, google news, image sitemap, video sitemap, google sitemaps, xml, google, seo, sitemaps, site map, robots, google, sitemap generator, dynamic sitemap, generator, google webmaster tools, add pages to sitemap, add posts to sitemap, wordpress sitemap plugin, sitemap for search engines, indexing sitemap, custom sitemap, multilingual sitemap, news sitemap, seo friendly sitemap, woocommerce sitemap, image sitemap generator
 Requires at least: 5.0
 Requires PHP: 5.6
-Tested up to: 6.9.4
-Stable tag: 2.3.1
+Tested up to: 7.0
+Stable tag: 2.3.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -298,6 +298,9 @@ This section describes how to install the plugin and get it working.
 4. Set Up Page in **Settings -> XML Sitemaps**.
 
 == Changelog ==
+
+= 2.3.2 - 2026-05-29 =
+* WordPress 7.0 compatible
 
 = 2.3.1 - 2026-05-09 =
 * Minor bug fixes
