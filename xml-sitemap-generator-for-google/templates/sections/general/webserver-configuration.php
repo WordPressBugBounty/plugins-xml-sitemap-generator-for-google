@@ -47,7 +47,7 @@ $stylesheet_url = apply_filters( 'sitemap_xsl_template_path', 'sitemap-styleshee
 				rewrite ^/<?php echo esc_html( $stylesheet_url ); ?>$ /index.php?sitemap_xsl=true&$args last;
 				<br>
 
-				rewrite ^/(.*)-sitemap([0-9]*)\.(xml|html)$ /index.php?sitemap_$3=true&inner_sitemap=$1&page=$2 last;
+				rewrite "^/(?&lt;inner&gt;.*)-sitemap(?&lt;page&gt;[0-9]*)\.(?&lt;type&gt;xml|html)$" "/index.php?sitemap_$type=true&inner_sitemap=$inner&page=$page" last;
 				<br>
 			</p>
 			<div class="grim-code-copied">

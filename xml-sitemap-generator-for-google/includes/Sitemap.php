@@ -21,10 +21,10 @@ class Sitemap extends Controller {
 	 * Generate Sitemap
 	 */
 	public function show_sitemap( $template, $is_xml = true, $inner_sitemap = null, $current_page = null ) {
-		if ( sgg_is_sitemap_index( $template, $this->settings ) && ! empty( $inner_sitemap ) ) {
+		if ( ! empty( $inner_sitemap ) ) {
 			if ( in_array( $template, array( ImageSitemap::$template, VideoSitemap::$template ), true ) ) {
 				$template .= '-inner-sitemap';
-			} else {
+			} elseif ( sgg_is_sitemap_index( $template, $this->settings ) ) {
 				$template = 'inner-sitemap';
 			}
 		}

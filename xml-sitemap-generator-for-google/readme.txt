@@ -5,7 +5,7 @@ Tags: sitemap, xml sitemap, google news, image sitemap, video sitemap, google si
 Requires at least: 5.0
 Requires PHP: 5.6
 Tested up to: 7.0
-Stable tag: 2.3.2
+Stable tag: 2.3.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -298,6 +298,10 @@ This section describes how to install the plugin and get it working.
 4. Set Up Page in **Settings -> XML Sitemaps**.
 
 == Changelog ==
+
+= 2.3.3 - 2026-06-22 =
+* Security: Suggested NGINX rewrite rules changed to PCRE captures
+* Image Sitemap warnings fixed
 
 = 2.3.2 - 2026-05-29 =
 * WordPress 7.0 compatible

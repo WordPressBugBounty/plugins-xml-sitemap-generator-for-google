@@ -193,6 +193,10 @@ class SitemapGenerator {
 			$dom->appendChild( $urlset );
 
 			foreach ( $sitemap as $url ) {
+				if ( ! is_array( $url ) || ! isset( $url['loc'] ) ) {
+					continue;
+				}
+
 				$url_element = $dom->createElement( 'url' );
 
 				$url_element->appendChild(
@@ -246,8 +250,9 @@ class SitemapGenerator {
 						if ( ! empty( $url['media'] ) ) {
 							foreach ( $url['media'] as $image ) {
 								$image_element = $url_element->appendChild( $dom->createElement( 'image:image' ) );
+								// createElement() parses its value as markup, so encode XML special chars (e.g. &) explicitly.
 								$image_element->appendChild(
-									$dom->createElement( 'image:loc', $image )
+									$dom->createElement( 'image:loc', esc_url_raw( $image ) )
 								);
 							}
 						}
@@ -267,12 +272,12 @@ class SitemapGenerator {
 								// Decode HTML entities first, then DOMDocument will handle XML escaping properly
 								$video_title = html_entity_decode( $video['title'] ?? '', ENT_QUOTES | ENT_HTML5, 'UTF-8' );
 								$video_element->appendChild(
-									$dom->createElement( 'video:title', $video_title )
+									$dom->createElement( 'video:title', htmlspecialchars( $video_title, ENT_XML1, 'UTF-8' ) )
 								);
 								// Decode HTML entities first, then DOMDocument will handle XML escaping properly
 								$video_description = html_entity_decode( $video['description'] ?? '', ENT_QUOTES | ENT_HTML5, 'UTF-8' );
 								$video_element->appendChild(
-									$dom->createElement( 'video:description', $video_description )
+									$dom->createElement( 'video:description', htmlspecialchars( $video_description, ENT_XML1, 'UTF-8' ) )
 								);
 								$video_element->appendChild(
 									$dom->createElement( 'video:player_loc', esc_url( $video['player_loc'] ?? '' ) )
