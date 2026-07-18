@@ -12,6 +12,7 @@ if ( ! is_textdomain_loaded( 'xml-sitemap-generator-for-google' ) ) {
 require_once GRIM_SG_INCLUDES . 'hooks.php';
 require_once GRIM_SG_INCLUDES . 'helpers.php';
 require_once GRIM_SG_INCLUDES . 'search-settings.php';
+require_once GRIM_SG_INCLUDES . 'compatibility/compatibility.php';
 
 // Autoload
 require_once GRIM_SG_INCLUDES . 'vendor/Controller.php';
