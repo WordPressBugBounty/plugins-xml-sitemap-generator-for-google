@@ -9,8 +9,8 @@ class Notices extends Controller {
 	private const BUY_PRO              = 'sgg_buy_pro';
 	private const NOTICE_COOLDOWN_DAYS = 3;
 	private const NOTICE_DELAY_DAYS    = array(
-		self::RATE    => array( 14, 60 ),
-		self::BUY_PRO => array( 10, 40, 90 ),
+		self::RATE    => array( 7, 30, 90 ),
+		self::BUY_PRO => array( 14, 60, 120 ),
 	);
 
 	public function __construct() {

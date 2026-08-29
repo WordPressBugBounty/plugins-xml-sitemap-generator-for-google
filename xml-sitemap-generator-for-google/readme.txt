@@ -5,7 +5,7 @@ Tags: sitemap, xml sitemap, google news, image sitemap, video sitemap, google si
 Requires at least: 5.0
 Requires PHP: 5.6
 Tested up to: 7.1
-Stable tag: 2.3.6
+Stable tag: 2.3.7
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -300,6 +300,9 @@ This section describes how to install the plugin and get it working.
 
 == Changelog ==
 
+= 2.3.7 - 2026-08-29 =
+* Setup Wizard appearance improved
+* Minor bug fixes
 
 = 2.3.6 - 2026-08-19 =
 * WordPress 7.1 compatible

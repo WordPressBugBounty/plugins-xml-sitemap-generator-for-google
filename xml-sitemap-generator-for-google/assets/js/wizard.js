@@ -75,6 +75,8 @@ jQuery(document).ready(function($) {
 
         if (stepIndex === formSteps.length - 1) {
             formSubmitBtn.removeClass('right-icon').find('span').text(sggWizard.finish);
+        } else {
+            formSubmitBtn.addClass('right-icon').find('span').html(sggWizard.continue + ' <i class="grim-icon-arrow-right"></i>');
         }
     }
 });

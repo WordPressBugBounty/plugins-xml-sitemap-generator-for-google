@@ -139,13 +139,13 @@ Dashboard::render( 'wizard/header.php' );
 			<div class="wizard-form-btn-wrapper">
 				<div class="wizard-form-btn-wrapper">
 					<button class="grim-button white left-icon wizard-back-btn active">
-						<span><i class="grim-icon-arrow-left"></i>Back</span>
+						<span><i class="grim-icon-arrow-left"></i><?php esc_html_e( 'Back', 'xml-sitemap-generator-for-google' ); ?></span>
 					</button>
 				</div>
 
 				<div class="wizard-form-btn-wrapper">
 					<button class="grim-button secondary wizard-btn right-icon">
-						<span>Continue <i class="grim-icon-arrow-right"></i></span>
+						<span><?php esc_html_e( 'Continue', 'xml-sitemap-generator-for-google' ); ?> <i class="grim-icon-arrow-right"></i></span>
 					</button>
 				</div>
 			</div>

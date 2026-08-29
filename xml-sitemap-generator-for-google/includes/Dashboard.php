@@ -183,7 +183,7 @@ class Dashboard extends Controller {
 		$saved_settings = $this->get_settings();
 
 		// Check YouTube API Key
-		if ( ( ! empty( $_POST['youtube_check_api_key'] ) || $saved_settings->youtube_api_key !== $_POST['youtube_api_key'] )
+		if ( ( ! empty( $_POST['youtube_check_api_key'] ) || $saved_settings->youtube_api_key !== ( $_POST['youtube_api_key'] ?? '' ) )
 			&& ! empty( $_POST['youtube_api_key'] ) && is_callable( 'SGG_PRO\Classes\Video_Sitemap::request_youtube_data' ) ) {
 			$youtube_data = Video_Sitemap::request_youtube_data( 'dQw4w9WgXcQ', sanitize_text_field( $_POST['youtube_api_key'] ) );
 
@@ -199,7 +199,7 @@ class Dashboard extends Controller {
 		}
 
 		// Check Vimeo API Key
-		if ( ( ! empty( $_POST['vimeo_check_api_key'] ) || $saved_settings->vimeo_api_key !== $_POST['vimeo_api_key'] )
+		if ( ( ! empty( $_POST['vimeo_check_api_key'] ) || $saved_settings->vimeo_api_key !== ( $_POST['vimeo_api_key'] ?? '' ) )
 			&& ! empty( $_POST['vimeo_api_key'] ) && is_callable( 'SGG_PRO\Classes\Video_Sitemap::request_vimeo_data' ) ) {
 			$vimeo_data = Video_Sitemap::request_vimeo_data( '22439234', sanitize_text_field( $_POST['vimeo_api_key'] ) );
 
@@ -250,8 +250,8 @@ class Dashboard extends Controller {
 		$settings->hide_image_sitemap_xsl  = sanitize_text_field( $_POST['hide_image_sitemap_xsl'] ?? 0 );
 		$settings->hide_video_sitemap_xsl  = sanitize_text_field( $_POST['hide_video_sitemap_xsl'] ?? 0 );
 		$settings->image_mime_types        = apply_filters( 'sanitize_post_array', $_POST['image_mime_types'] ?? $settings->image_mime_types );
-		$settings->youtube_api_key         = sanitize_text_field( $_POST['youtube_api_key'] ?? $settings->youtube_api_key );
-		$settings->vimeo_api_key           = sanitize_text_field( $_POST['vimeo_api_key'] ?? $settings->vimeo_api_key );
+		$settings->youtube_api_key         = sanitize_text_field( $_POST['youtube_api_key'] ?? $saved_settings->youtube_api_key );
+		$settings->vimeo_api_key           = sanitize_text_field( $_POST['vimeo_api_key'] ?? $saved_settings->vimeo_api_key );
 		$settings->exclude_broken_images   = sanitize_text_field( $_POST['exclude_broken_images'] ?? 0 );
 		$settings->include_featured_images = sanitize_text_field( $_POST['include_featured_images'] ?? 0 );
 		$settings->include_woo_gallery     = sanitize_text_field( $_POST['include_woo_gallery'] ?? 0 );
