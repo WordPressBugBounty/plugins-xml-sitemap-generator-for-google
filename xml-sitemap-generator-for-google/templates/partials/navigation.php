@@ -15,6 +15,7 @@ $settings = $args['settings'] ?? new stdClass();
 					<a href="#" class="grim-nav-tab-item nav-tab" data-id="google-news"><i class="grim-icon-google"></i><?php esc_html_e( 'Google News', 'xml-sitemap-generator-for-google' ); ?></a>
 					<a href="#" class="grim-nav-tab-item nav-tab" data-id="image-sitemap"><i class="grim-icon-image"></i><?php esc_html_e( 'Image Sitemap', 'xml-sitemap-generator-for-google' ); ?></a>
 					<a href="#" class="grim-nav-tab-item nav-tab" data-id="video-sitemap"><i class="grim-icon-play-circle"></i><?php esc_html_e( 'Video Sitemap', 'xml-sitemap-generator-for-google' ); ?></a>
+					<a href="#" class="grim-nav-tab-item nav-tab" data-id="broken-links"><i class="grim-icon-external-link"></i><?php esc_html_e( 'Broken Links', 'xml-sitemap-generator-for-google' ); ?></a>
 					<a href="#" class="grim-nav-tab-item nav-tab" data-id="advanced"><i class="grim-icon-sliders-horizontal"></i><?php esc_html_e( 'Advanced', 'xml-sitemap-generator-for-google' ); ?></a>
 				</nav>
 			</div>

@@ -219,6 +219,16 @@ class Dashboard extends Controller {
 			wp_clear_scheduled_hook( 'xml_sitemap_cronjob' );
 		}
 
+		$broken_links_schedule = sanitize_key( $_POST['broken_links_schedule'] ?? 'weekly' );
+		if ( ! in_array( $broken_links_schedule, array( 'daily', 'weekly', 'monthly' ), true ) ) {
+			$broken_links_schedule = 'weekly';
+		}
+
+		if ( empty( $_POST['enable_broken_links_cron'] ) || ( ! empty( $saved_settings->broken_links_schedule ) && $saved_settings->broken_links_schedule !== $broken_links_schedule ) ) {
+			wp_clear_scheduled_hook( 'sgg_broken_links_cron' );
+			wp_clear_scheduled_hook( 'sgg_broken_links_cron_batch' );
+		}
+
 		$settings->enable_sitemap      = sanitize_text_field( $_POST['enable_sitemap'] ?? 0 );
 		$settings->sitemap_url         = sanitize_text_field( $_POST['sitemap_url'] ?? $settings->sitemap_url );
 		$settings->links_per_page      = sanitize_text_field( $_POST['links_per_page'] ?? $settings->links_per_page );
@@ -267,6 +277,8 @@ class Dashboard extends Controller {
 		$settings->hide_branding               = sanitize_text_field( $_POST['hide_branding'] ?? 0 );
 		$settings->enable_cronjob              = sanitize_text_field( $_POST['enable_cronjob'] ?? 0 );
 		$settings->cronjob_runtime             = sanitize_text_field( $_POST['cronjob_runtime'] ?? $settings->cronjob_runtime );
+		$settings->enable_broken_links_cron    = sanitize_text_field( $_POST['enable_broken_links_cron'] ?? 0 );
+		$settings->broken_links_schedule       = $broken_links_schedule;
 
 		$settings->home          = $settings->get_row_value( 'home' );
 		$settings->page          = $settings->get_row_value( 'page' );
@@ -313,6 +325,10 @@ class Dashboard extends Controller {
 		}
 
 		update_option( self::$slug, $settings );
+
+		if ( ! empty( $settings->enable_broken_links_cron ) && class_exists( '\SGG_PRO\Classes\Broken_Links_Cron' ) ) {
+			\SGG_PRO\Classes\Broken_Links_Cron::ensure_scheduled( $settings->broken_links_schedule );
+		}
 
 		$new_cache_expires = Cache::get_expiration( $settings );
 		if ( Cache::get_expiration( $saved_settings ) !== $new_cache_expires ) {

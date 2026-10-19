@@ -77,6 +77,8 @@ class Settings extends Controller {
 	public $hide_branding    = true;
 	public $enable_cronjob   = false;
 	public $cronjob_runtime  = 'daily';
+	public $enable_broken_links_cron = false;
+	public $broken_links_schedule    = 'weekly';
 	public $colors           = array(
 		'header_background_color'  => '#82a745',
 		'header_text_color'        => '#ffffff',

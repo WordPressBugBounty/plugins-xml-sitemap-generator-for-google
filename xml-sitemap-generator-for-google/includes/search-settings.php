@@ -246,6 +246,22 @@ function xml_sitemap_generate_settings() {
 				'label' => 'Export Settings',
 			),
 		),
+		'broken-links' => array(
+			array(
+				'id'    => 'broken_links',
+				'label' => 'Broken Links',
+				'tags'  => 'broken link image scan 404 redirect',
+			),
+			array(
+				'id'    => 'enable_broken_links_cron',
+				'label' => 'Scheduled Scans',
+				'tags'  => 'daily weekly monthly cron',
+			),
+			array(
+				'id'    => 'broken_links_schedule',
+				'label' => 'Scan Schedule',
+			),
+		),
 	);
 
 	$flat_settings_array = array();

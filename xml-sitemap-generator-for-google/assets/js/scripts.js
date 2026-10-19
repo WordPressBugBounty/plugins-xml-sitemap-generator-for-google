@@ -550,6 +550,7 @@ jQuery(document).ready(function ($) {
             'google-news': 'Google News',
             'image-sitemap': 'Image Sitemap',
             'video-sitemap': 'Video Sitemap',
+            'broken-links': 'Broken Links',
             'advanced': 'Advanced'
         };
         return tabNames[tabId] || tabId;

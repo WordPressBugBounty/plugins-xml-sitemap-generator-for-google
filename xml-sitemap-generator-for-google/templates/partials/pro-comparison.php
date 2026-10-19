@@ -56,6 +56,11 @@ $main_cta = sgg_get_segment_cta( 'default', 'comparison-table-main' );
 			<td><?php esc_html_e( 'Standard', 'xml-sitemap-generator-for-google' ); ?></td>
 			<td><?php esc_html_e( 'Enhanced', 'xml-sitemap-generator-for-google' ); ?></td>
 		</tr>
+		<tr>
+			<td colspan="2"><?php esc_html_e( 'Broken link and image scan', 'xml-sitemap-generator-for-google' ); ?></td>
+			<td><?php esc_html_e( 'Locked', 'xml-sitemap-generator-for-google' ); ?></td>
+			<td><?php esc_html_e( 'Included', 'xml-sitemap-generator-for-google' ); ?></td>
+		</tr>
 		</tbody>
 	</table>
 

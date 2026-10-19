@@ -96,6 +96,11 @@ use GRIM_SG\Dashboard;
 							</div>
 
 							<div class="section">
+								<!-- Broken Links -->
+								<?php Dashboard::render( 'sections/broken-links/scan.php', $args ); ?>
+							</div>
+
+							<div class="section">
 								<!-- Cache -->
 								<?php Dashboard::render( 'sections/advanced/cache.php', $args ); ?>
 

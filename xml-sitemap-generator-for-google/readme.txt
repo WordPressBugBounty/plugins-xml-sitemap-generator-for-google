@@ -5,7 +5,7 @@ Tags: sitemap, xml sitemap, google news, image sitemap, video sitemap, google si
 Requires at least: 5.0
 Requires PHP: 5.6
 Tested up to: 7.1.3
-Stable tag: 2.3.8
+Stable tag: 2.3.9
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -198,6 +198,17 @@ You can also customize your HTML Sitemap by choosing which Post Types to display
 * Minimize Sitemap source code
 * Cron Job **[NEW]** 🔥
 
+**Broken Links**
+
+Find links and images inside published content that no longer work. The scan checks the Pages, Posts, and Custom Posts included in your sitemap and reports broken links, redirects, and URLs that could not be checked. From the results you can open the post, recheck a URL, or ignore it. Scheduled scans can run daily, weekly, or monthly. [Try Pro Version](https://wpgrim.com/google-xml-sitemaps-generator-pro/?utm_source=wordpressorg&utm_medium=broken-links&utm_campaign=xml_sitemap)
+
+**Broken Links Premium Features**
+
+* Scan links and images in published sitemap content **[NEW]** 🔥
+* Broken, redirect, and could-not-check results
+* Recheck and ignore URLs
+* Scheduled scans: Daily, Weekly, and Monthly **[NEW]**
+
 ⭐ [Get PRO Version Now](https://wpgrim.com/google-xml-sitemaps-generator-pro/?utm_source=wordpressorg&utm_medium=get_pro&utm_campaign=xml_sitemap)
 
 ## More Powerful Plugins
@@ -299,6 +310,10 @@ This section describes how to install the plugin and get it working.
 4. Set Up Page in **Settings -> XML Sitemaps**.
 
 == Changelog ==
+
+= 2.3.9 - 2026-10-19 =
+* Pro Version: Broken Links scan added
+* Pro Version: Scheduled Broken Links scans added
 
 = 2.3.8 - 2026-10-11 =
 * WordPress 7.1.3 compatible
